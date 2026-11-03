@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Steven Gennesie B. Laña - Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root[data-theme="dark"] {
+      --bg: #000000;
+      --text: #ffffff;
+      --muted: #a3a3a3;
+      --grid: rgba(255, 255, 255, 0.07);
+      --header-bg: rgba(0, 0, 0, 0.95);
+      --border: rgba(255, 255, 255, 0.15);
+      --card-bg: #111111;
+      --input-bg: #000000;
+      --btn-solid-bg: #ffffff;
+      --btn-solid-text: #000000;
+      --btn-solid-hover: #cccccc;
+      --badge-bg: #ffffff;
+      --badge-text: #000000;
+      --pill-bg: #111111;
+      --pill-border: rgba(255, 255, 255, 0.2);
+      --detail-bg: #070707;
+      --glow: 0 0 28px rgba(255, 255, 255, 0.22);
+    }
+
+    :root[data-theme="light"] {
+      --bg: #fafafa;
+      --text: #0a0a0a;
+      --muted: #555555;
+      --grid: rgba(0, 0, 0, 0.07);
+      --header-bg: rgba(250, 250, 250, 0.95);
+      --border: rgba(0, 0, 0, 0.12);
+      --card-bg: #ffffff;
+      --input-bg: #fafafa;
+      --btn-solid-bg: #000000;
+      --btn-solid-text: #ffffff;
+      --btn-solid-hover: #333333;
+      --badge-bg: #000000;
+      --badge-text: #ffffff;
+      --pill-bg: #ffffff;
+      --pill-border: rgba(0, 0, 0, 0.15);
+      --detail-bg: #f4f4f4;
+      --glow: 0 0 25px rgba(0, 0, 0, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100vh;
+      width: 100vw;
+      overflow: hidden;
+    }
+
+    body {
+      background-color: var(--bg);
+      background-image: 
+        linear-gradient(to right, var(--grid) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
+      background-size: 50px 50px;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    header {
+      height: 60px;
+      background: var(--header-bg);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      padding: 0 2rem;
+      width: 100%;
+      flex-shrink: 0;
+      z-index: 100;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: 'Fira Code', monospace;
+      font-weight: 700;
+      font-size: 1.05rem;
+      letter-spacing: 0.05em;
+      justify-self: start;
+      color: var(--text);
+    }
+
+    .brand-icon {
+      width: 22px;
+      height: 22px;
+      stroke: var(--text);
+      fill: none;
+      stroke-width: 2;
+    }
+
+    nav {
+      grid-column: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+      white-space: nowrap;
+    }
+
+    nav button {
+      background: none;
+      border: 1px solid transparent;
+      color: var(--muted);
+      font-family: 'Fira Code', monospace;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    nav button:hover,
+    nav button.active {
+      background: var(--text);
+      color: var(--bg);
+      border-color: var(--text);
+    }
+
+    .header-right {
+      grid-column: 3;
+      justify-self: end;
+      display: flex;
+      align-items: center;
+    }
+
+    .theme-toggle-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .theme-toggle-btn:hover {
+      background: var(--text);
+      color: var(--bg);
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem 3rem 1.8rem;
+      max-width: 1450px;
+      width: 100%;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .view-panel {
+      display: none;
+      width: 100%;
+      animation: fadeIn 0.22s ease-in-out;
+    }
+
+    .view-panel.active-panel {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .home-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      width: 100%;
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    .hero-layout {
+      display: grid;
+      grid-template-columns: 350px 1fr;
+      gap: 3.5rem;
+      align-items: center;
+      width: 100%;
+    }
+
+    .photo-column {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .photo-outer-border {
+      border: 1px solid var(--border);
+      padding: 10px;
+      background: rgba(255, 255, 255, 0.02);
+      width: 100%;
+      max-width: 350px;
+      aspect-ratio: 1 / 1.15;
+      position: relative;
+    }
+
+    .photo-inner-canvas {
+      width: 100%;
+      height: 100%;
+      background: #111111;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .photo-inner-canvas img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: none !important;
+    }
+
+    .hero-content {
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+    }
+
+    .mono-tag {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.86rem;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+
+    h1.hero-title {
+      font-size: clamp(2.8rem, 4.8vw, 4.2rem);
+      font-weight: 900;
+      line-height: 1.04;
+      letter-spacing: -0.03em;
+      color: var(--text);
+    }
+
+    .hero-role {
+      font-family: 'Fira Code', monospace;
+      font-size: 1.15rem;
+      letter-spacing: 0.02em;
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .social-row {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+      margin-top: 0.4rem;
+    }
+
+    .social-badge {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.78rem;
+      padding: 7px 16px;
+      border: 1px solid var(--border);
+      border-radius: 9999px;
+      background: var(--bg);
+      color: var(--text);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .social-badge:hover {
+      background: var(--text);
+      color: var(--bg);
+    }
+
+    .social-badge svg {
+      stroke: currentColor;
+    }
+
+    .home-timeline-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.2rem;
+      width: 100%;
+    }
+
+    .home-timeline-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.15rem 1.35rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      text-align: left;
+    }
+
+    .home-timeline-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--text);
+    }
+
+    .badge-pill {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.72rem;
+      padding: 2px 10px;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.12);
+      color: var(--text);
+      display: inline-block;
+      width: fit-content;
+    }
+
+    .home-timeline-card h4 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .home-timeline-card p {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    .stage-fullscreen-screen {
+      background: var(--detail-bg);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 2.2rem 3.4rem;
+      position: relative;
+      width: 100%;
+      max-width: 1480px;
+      margin: 0 auto;
+      min-height: 480px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .back-btn {
+      position: absolute;
+      top: 20px;
+      left: 24px;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.75rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s ease;
+    }
+
+    .back-btn:hover {
+      background: var(--text);
+      color: var(--bg);
+    }
+
+    .stage-grid-layout {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 3.8rem;
+      align-items: center;
+      margin-top: 1rem;
+    }
+
+    .stage-left-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .stage-rounded-box {
+      width: 100%;
+      height: 380px;
+      border-radius: 26px;
+      border: 2px solid var(--border);
+      box-shadow: var(--glow);
+      background: var(--card-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      padding: 0;
+    }
+
+    .stage-rounded-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: none !important;
+    }
+
+    .stage-tag-pill {
+      background: var(--pill-bg);
+      border: 1px solid var(--pill-border);
+      border-radius: 9999px;
+      padding: 4px 16px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.72rem;
+      color: var(--text);
+    }
+
+    .stage-right-content {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .stage-heading {
+      font-size: clamp(2rem, 3.6vw, 2.8rem);
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.02em;
+    }
+
+    .stage-subtext {
+      font-size: 0.96rem;
+      color: var(--muted);
+      line-height: 1.6;
+      max-width: 740px;
+    }
+
+    .stage-cards-triad {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 0.4rem;
+    }
+
+    .stage-subcard {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.2rem 1.1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .stage-subcard h5 {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .stage-subcard p {
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 800;
+      margin-bottom: 1.2rem;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+
+    .grid-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 1.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .card h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .card .meta {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .card p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .contact-container {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 1.5rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 1.8rem;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .form-group label {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--input-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.85rem;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--text);
+    }
+
+    .form-group textarea {
+      resize: none;
+      height: 75px;
+    }
+
+    footer {
+      height: 40px;
+      border-top: 1px solid var(--border);
+      background: var(--header-bg);
+      backdrop-filter: blur(8px);
+      padding: 0 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.75rem;
+      color: var(--muted);
+      width: 100%;
+      flex-shrink: 0;
+      z-index: 100;
+    }
+
+    @media (max-width: 950px) {
+      .hero-layout,
+      .home-timeline-row,
+      .stage-grid-layout,
+      .stage-cards-triad,
+      .contact-container {
+        grid-template-columns: 1fr;
+      }
+      .photo-column {
+        max-width: 280px;
+        margin: 0 auto;
+      }
+      main {
+        overflow-y: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="brand">
+      <svg class="brand-icon" viewBox="0 0 24 24">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+      </svg>
+      <span>SGL</span>
+    </div>
+
+    <nav>
+      <button class="active" onclick="switchView('home', this)">HOME</button>
+      <button onclick="switchView('about', this)">ABOUT</button>
+      <button onclick="switchView('family', this)">FAMILY</button>
+      <button onclick="switchView('education', this)">EDUCATION</button>
+      <button onclick="switchView('skills', this)">SKILLS</button>
+      <button onclick="switchView('projects', this)">PROJECTS</button>
+      <button onclick="switchView('contact', this)">CONTACT</button>
+    </nav>
+
+    <div class="header-right">
+      <button class="theme-toggle-btn" onclick="toggleTheme()" id="themeBtn">
+        <span id="themeIcon">☀️</span>
+        <span id="themeLabel">Light Mode</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Viewport -->
+  <main>
+
+    <!-- 0. HOME VIEW -->
+    <div id="view-home" class="view-panel active-panel">
+      <div class="home-wrapper">
+
+        <!-- Top Hero Row -->
+        <div class="hero-layout">
+
+          <!-- Left Photo Column (Track and Block removed) -->
+          <div class="photo-column">
+            <div class="photo-outer-border">
+              <div class="photo-inner-canvas">
+                <img id="userPhoto" src="profile.jpg.jpg" alt="Steven Gennesie B. Laña" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Content Details -->
+          <div class="hero-content">
+            <div class="mono-tag">// WELCOME TO MY PORTFOLIO</div>
+            <h1 class="hero-title">Steven Gennesie<br>B. Laña</h1>
+            <div class="hero-role">Bachelor of Science in Information Technology</div>
+
+            <!-- Badges Row: GitHub, Facebook, and Contact Me -->
+            <div class="social-row">
+              <a href="https://github.com/stevengennesielana-svg" target="_blank" class="social-badge">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                </svg>
+                GitHub
+              </a>
+              <a href="https://facebook.com/stevengennesielana" target="_blank" class="social-badge">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                </svg>
+                Facebook
+              </a>
+              <button class="social-badge" onclick="switchView('contact')">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+                Contact Me
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- PPF Timeline Cards Below -->
+        <div class="home-timeline-row">
+          <div class="home-timeline-card" onclick="openStageDetail('past')">
+            <span class="badge-pill">Past</span>
+            <h4>Where I started <span>&rarr;</span></h4>
+            <p>Early foundations, schooling.</p>
+          </div>
+
+          <div class="home-timeline-card" onclick="openStageDetail('present')">
+            <span class="badge-pill">Present</span>
+            <h4>What I’m doing now <span>&rarr;</span></h4>
+            <p>College at UC, Networking & Security</p>
+          </div>
+
+          <div class="home-timeline-card" onclick="openStageDetail('future')">
+            <span class="badge-pill">Future</span>
+            <h4>Where I’m going <span>&rarr;</span></h4>
+            <p>The security defender & engineer I'm becoming</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- DEDICATED STAGE VIEW -->
+    <div id="view-stage-detail" class="view-panel">
+      <div class="stage-fullscreen-screen">
+        <button class="back-btn" onclick="switchView('home')">&larr; Back</button>
+
+        <div class="stage-grid-layout">
+          <div class="stage-left-box">
+            <div class="stage-rounded-box">
+              <img id="stageImgDisplay" src="profile.jpg.jpg" alt="Stage Photo" />
+            </div>
+            <div class="stage-tag-pill" id="stageTagPill">Past</div>
+          </div>
+
+          <div class="stage-right-content">
+            <h2 class="stage-heading" id="stageHeading">Where I started</h2>
+            <p class="stage-subtext" id="stageSubtext">
+              Write about your early years: where you grew up and the moment you got curious about computers.
+            </p>
+
+            <div class="stage-cards-triad">
+              <div class="stage-subcard">
+                <h5 id="card1Title">Beginnings</h5>
+                <p id="card1Desc">First experiences with technology and tactical gaming.</p>
+              </div>
+              <div class="stage-subcard">
+                <h5 id="card2Title">Education</h5>
+                <p id="card2Desc">Natividad Central School & Movers Academy Incorporated.</p>
+              </div>
+              <div class="stage-subcard">
+                <h5 id="card3Title">Turning point</h5>
+                <p id="card3Desc">The exact moment I chose IT and cybersecurity.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 1. ABOUT VIEW -->
+    <div id="view-about" class="view-panel">
+      <div class="mono-tag">// 01. PROFILE</div>
+      <h2 class="section-title">About Me</h2>
+      <div class="grid-cards">
+        <div class="card">
+          <h3>College Student</h3>
+          <span class="meta">18 Years Old</span>
+          <p>
+            Passionate about technology, programming, and building a safer digital world. Currently focused on defensive security, networking, and clean software architecture. Driven by curiosity, discipline, and a strong ambition to succeed.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Sports & Athletics</h3>
+          <span class="meta">Physical Discipline</span>
+          <p>
+            Engaging in sports maintains physical endurance, fast reflex decision-making under pressure, and a team-first mindset.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Gaming & Strategy</h3>
+          <span class="meta">Analytical Mindset</span>
+          <p>
+            Competitive gaming sharpens tactical planning and patience, which directly informs how I evaluate cybersecurity risks and software design.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. FAMILY VIEW -->
+    <div id="view-family" class="view-panel">
+      <div class="mono-tag">// 02. FOUNDATION</div>
+      <h2 class="section-title">Family & Roots</h2>
+      <div class="grid-cards">
+        <div class="card">
+          <h3>Family Support & Values</h3>
+          <span class="meta">Core Inspiration</span>
+          <p>
+            The continuous pillar of encouragement behind my academic journey, inspiring my dedication, moral compass, and pursuit of excellence.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Work Ethic & Principles</h3>
+          <span class="meta">Guiding Anchor</span>
+          <p>
+            Growing up surrounded by discipline and perseverance taught me the importance of resilience, humility, and always striving to do my best.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. EDUCATION VIEW -->
+    <div id="view-education" class="view-panel">
+      <div class="mono-tag">// 03. BACKGROUND</div>
+      <h2 class="section-title">Education</h2>
+      <div class="grid-cards">
+        <div class="card">
+          <h3>Primary Education</h3>
+          <span class="meta">Natividad Central School | Graduated</span>
+          <p>
+            Completed primary education, laying down the fundamental building blocks of academic discipline, curiosity, and leadership.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Secondary Education</h3>
+          <span class="meta">Movers Academy Incorporated | Graduated</span>
+          <p>
+            Completed secondary education with focused preparation in mathematics, basic computing, research methodologies, and disciplined teamwork.
+          </p>
+        </div>
+        <div class="card">
+          <h3>College / Undergraduate</h3>
+          <span class="meta">University of the Cordilleras | Current</span>
+          <p>
+            Currently pursuing university education focused on computing fundamentals, system architecture, programming, and secure networking infrastructure.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. SKILLS VIEW -->
+    <div id="view-skills" class="view-panel">
+      <div class="mono-tag">// 04. TOOLKIT</div>
+      <h2 class="section-title">Skills & Competencies</h2>
+      <div class="grid-cards">
+        <div class="card">
+          <h3>Cybersecurity</h3>
+          <p>
+            Network Defense Basics, Vulnerability Assessment, System Hardening, Encryption Fundamentals, Security Protocols.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Programming & Logic</h3>
+          <p>
+            Python, Algorithmic Logic, Web Development Fundamentals, Automation Scripting.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Soft Skills</h3>
+          <p>
+            Strategic Problem Solving, Adaptive Thinking, Team Collaboration, High Discipline & Drive.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. PROJECTS VIEW -->
+    <div id="view-projects" class="view-panel">
+      <div class="mono-tag">// 05. WORKS</div>
+      <h2 class="section-title">Projects</h2>
+      <div class="grid-cards">
+        <div class="card">
+          <h3>Network Traffic Analyzer</h3>
+          <span class="meta">Python / Wireshark</span>
+          <p>
+            A dedicated network monitoring lab isolating suspicious packet headers and abnormal traffic flow across private networks.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Interactive Single-Screen Portfolio</h3>
+          <span class="meta">HTML / CSS / JavaScript</span>
+          <p>
+            A minimal, grid-aesthetic cybersecurity resume interface with fixed-screen tab switching, responsive controls, and clean monospace typography.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. CONTACT VIEW -->
+    <div id="view-contact" class="view-panel">
+      <div class="mono-tag">// 06. REACH OUT</div>
+      <h2 class="section-title">Contact</h2>
+      <div class="contact-container">
+        <div class="contact-info">
+          <h3>Let's Connect</h3>
+          <p>
+            Have an opportunity, project, or want to discuss security? Drop a direct message below.
+          </p>
+          <div style="font-family: 'Fira Code', monospace; font-size: 0.8rem; color: var(--text);">
+            <strong>Email:</strong><br>
+            stevengennesielana@gmail.com
+          </div>
+          <div class="social-row" style="margin-top: 0.3rem;">
+            <a href="https://github.com/stevengennesielana-svg" target="_blank" class="social-badge">GitHub</a>
+            <a href="https://facebook.com/stevengennesielana" target="_blank" class="social-badge">Facebook</a>
+          </div>
+        </div>
+
+        <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Your Name" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="_replyto" placeholder="Your Email Address" required />
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Type your message here..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn-solid" style="justify-content: center; padding: 8px;">
+            Send Message &rarr;
+          </button>
+        </form>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div>&copy; Steven Gennesie B. Laña</div>
+    <div>Learning today, securing tomorrow.</div>
+  </footer>
+
+  <script>
+    const stageData = {
+      past: {
+        tag: 'Past',
+        image: 'profile.jpg.',
+        heading: 'Where I started',
+        subtext: 'Write about your early years: where you grew up and the moment you got curious about computers.',
+        c1T: 'Beginnings', c1D: 'First experiences with technology and tactical gaming.',
+        c2T: 'Education', c2D: 'Natividad Central School & Movers Academy Incorporated.',
+        c3T: 'Turning point', c3D: 'The exact moment I chose IT and cybersecurity.'
+      },
+      present: {
+        tag: 'Present',
+        image: 'profile.jpg.',
+        heading: 'What I’m doing now',
+        subtext: 'Currently training, studying coursework, and building defense labs and web projects every single week.',
+        c1T: 'Current Studies', c1D: 'University of the Cordilleras | CITCS 1F Group B.',
+        c2T: 'Specialization', c2D: 'Web Technology Track & Defensive Security Fundamentals.',
+        c3T: 'Weekly Growth', c3D: 'Hands-on Linux configurations, Python, and portfolio building.'
+      },
+      future: {
+        tag: 'Future',
+        image: 'profile.jpg.',
+        heading: 'Where I’m going',
+        subtext: 'The professional cybersecurity defender and high-impact software architect I am actively becoming.',
+        c1T: 'Target Role', c1D: 'Cybersecurity Specialist & Enterprise Security Engineer.',
+        c2T: 'Credentials', c2D: 'Earning industry-standard defense and networking certifications.',
+        c3T: 'Long-term Goal', c3D: 'Securing vital systems and critical digital infrastructure.'
+      }
+    };
+
+    function switchView(viewName, buttonElement) {
+      document.querySelectorAll('.view-panel').forEach(panel => {
+        panel.classList.remove('active-panel');
+      });
+
+      const targetPanel = document.getElementById('view-' + viewName);
+      if (targetPanel) {
+        targetPanel.classList.add('active-panel');
+      }
+
+      document.querySelectorAll('nav button').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.innerText.toLowerCase() === viewName.toLowerCase()) {
+          btn.classList.add('active');
+        }
+      });
+
+      if (buttonElement) {
+        buttonElement.classList.add('active');
+      }
+    }
+
+    function openStageDetail(stageKey) {
+      const data = stageData[stageKey];
+      if (!data) return;
+
+      switchView('stage-detail');
+
+      document.getElementById('stageTagPill').innerText = data.tag;
+      document.getElementById('stageImgDisplay').src = data.image;
+      document.getElementById('stageHeading').innerText = data.heading;
+      document.getElementById('stageSubtext').innerText = data.subtext;
+      document.getElementById('card1Title').innerText = data.c1T;
+      document.getElementById('card1Desc').innerText = data.c1D;
+      document.getElementById('card2Title').innerText = data.c2T;
+      document.getElementById('card2Desc').innerText = data.c2D;
+      document.getElementById('card3Title').innerText = data.c3T;
+      document.getElementById('card3Desc').innerText = data.c3D;
+    }
+
+    function toggleTheme() {
+      const root = document.documentElement;
+      const isDark = root.getAttribute('data-theme') === 'dark';
+      const newTheme = isDark ? 'light' : 'dark';
+      
+      root.setAttribute('data-theme', newTheme);
+
+      document.getElementById('themeIcon').innerText = newTheme === 'light' ? '🌙' : '☀️';
+      document.getElementById('themeLabel').innerText = newTheme === 'light' ? 'Dark Mode' : 'Light Mode';
+    }
+  </script>
+</body>
+</html>
