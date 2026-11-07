@@ -10,24 +10,25 @@
   <style>
     :root {
       --bg: #06090e;
+      --input-bg: #06090e;
+      --detail-bg: #080d16;
+      --card-bg: #0f172a;
+      --header-bg: rgba(6, 9, 14, 0.95);
+      --border: rgba(255, 255, 255, 0.12);
+      --grid: rgba(255, 255, 255, 0.04);
       --text: #ffffff;
       --muted: #94a3b8;
-      --grid: rgba(255, 255, 255, 0.05);
-      --header-bg: rgba(6, 9, 14, 0.95);
-      --border: rgba(255, 255, 255, 0.14);
-      --card-bg: #0f172a;
-      --input-bg: #06090e;
+      --cyan: #38bdf8;
+      --accent: #f59e0b;
+      --green: #10b981;
+      --gradient-primary: linear-gradient(135deg, #38bdf8 0%, #f59e0b 100%);
+      --gradient-subtle: linear-gradient(135deg, rgba(56, 189, 248, 0.15) 0%, rgba(245, 158, 11, 0.08) 100%);
+      --accent-glow: rgba(245, 158, 11, 0.28);
+      --cyan-glow: rgba(56, 189, 248, 0.25);
+      --glow: 0 0 32px rgba(56, 189, 248, 0.22);
       --btn-solid-bg: #38bdf8;
-      --btn-solid-text: #06090e;
-      --btn-solid-hover: #7dd3fc;
-      --badge-bg: #38bdf8;
-      --badge-text: #06090e;
       --pill-bg: rgba(56, 189, 248, 0.08);
       --pill-border: rgba(56, 189, 248, 0.28);
-      --detail-bg: #0a0f1d;
-      --accent: #38bdf8;
-      --accent-glow: rgba(56, 189, 248, 0.25);
-      --glow: 0 0 28px rgba(56, 189, 248, 0.2);
     }
 
     * {
@@ -44,26 +45,58 @@
 
     body {
       background-color: var(--bg);
-      background-image: 
-        radial-gradient(circle at 10% 20%, var(--accent-glow) 0%, transparent 35%),
-        radial-gradient(circle at 90% 80%, rgba(99, 102, 241, 0.14) 0%, transparent 40%),
-        linear-gradient(to right, var(--grid) 1px, transparent 1px),
-        linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
-      background-size: 100% 100%, 100% 100%, 50px 50px, 50px 50px;
       color: var(--text);
       font-family: 'Inter', sans-serif;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      position: relative;
+      cursor: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='12' cy='12' r='8' stroke='%2338bdf8' stroke-width='1.5' stroke-opacity='0.8' stroke-dasharray='2 2'/%3E%3Ccircle cx='12' cy='12' r='2' fill='%23f59e0b'/%3E%3Cpath d='M12 1v5M12 18v5M1 12h5M18 12h5' stroke='%2338bdf8' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E") 12 12, crosshair;
     }
 
-    /* --- INTRO LOADING SCREEN --- */
+    /* --- 3D INTERACTIVE PERSPECTIVE GRID BACKGROUND --- */
+    .bg-3d-scene {
+      position: fixed;
+      inset: 0;
+      perspective: 900px;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .bg-3d-plane {
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      left: -50%;
+      top: -50%;
+      background-image: 
+        radial-gradient(circle at 50% 40%, var(--cyan-glow) 0%, transparent 45%),
+        radial-gradient(circle at 80% 85%, var(--accent-glow) 0%, transparent 45%),
+        linear-gradient(to right, var(--grid) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 50px 50px, 50px 50px;
+      transform: rotateX(16deg) translateZ(0);
+      transform-style: preserve-3d;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform;
+    }
+
+    button, a, .home-timeline-card, .dossier-card, .spec-item, input, textarea {
+      cursor: url("data:image/svg+xml,%3Csvg width='28' height='28' viewBox='0 0 28 28' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='14' cy='14' r='10' stroke='%23f59e0b' stroke-width='2'/%3E%3Ccircle cx='14' cy='14' r='3.5' fill='%23ffffff'/%3E%3Cpath d='M14 0v6M14 22v6M0 14h6M22 14h6' stroke='%23f59e0b' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") 14 14, pointer !important;
+    }
+
+    .gradient-text {
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
+
+    /* Loader */
     #loader-screen {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
+      inset: 0;
       background: #06090e;
       background-image: 
         radial-gradient(circle at 50% 50%, rgba(56, 189, 248, 0.15) 0%, transparent 55%),
@@ -94,14 +127,8 @@
     }
 
     @keyframes loaderContentIn {
-      from {
-        opacity: 0;
-        transform: translateY(12px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .loader-tag {
@@ -110,7 +137,7 @@
       letter-spacing: 0.18em;
       color: var(--accent);
       text-transform: uppercase;
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .loader-name {
@@ -119,7 +146,6 @@
       font-weight: 900;
       line-height: 1.05;
       letter-spacing: -0.04em;
-      color: #ffffff;
     }
 
     .loader-name .dot {
@@ -134,14 +160,13 @@
       border-radius: 9999px;
       overflow: hidden;
       margin-top: 0.8rem;
-      position: relative;
     }
 
     .loader-bar-fill {
       height: 100%;
       width: 0%;
-      background: var(--accent);
-      box-shadow: 0 0 12px var(--accent);
+      background: var(--gradient-primary);
+      box-shadow: 0 0 14px var(--accent);
       border-radius: 9999px;
       animation: fillBar 1.4s cubic-bezier(0.65, 0, 0.35, 1) forwards;
     }
@@ -182,7 +207,7 @@
     .brand-icon {
       width: 22px;
       height: 22px;
-      stroke: var(--accent);
+      stroke: var(--cyan);
       fill: none;
       stroke-width: 2;
     }
@@ -192,7 +217,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 0.8rem;
+      gap: 0.6rem;
       white-space: nowrap;
     }
 
@@ -201,20 +226,21 @@
       border: 1px solid transparent;
       color: var(--muted);
       font-family: 'Fira Code', monospace;
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       text-transform: uppercase;
       letter-spacing: 0.06em;
-      padding: 6px 14px;
+      padding: 6px 13px;
       border-radius: 9999px;
-      cursor: pointer;
       transition: all 0.2s ease;
     }
 
     nav button:hover,
     nav button.active {
-      background: var(--text);
-      color: var(--bg);
-      border-color: var(--text);
+      background: var(--gradient-primary);
+      color: #06090e;
+      font-weight: 700;
+      border-color: transparent;
+      box-shadow: 0 0 16px var(--accent-glow);
     }
 
     .header-right {
@@ -222,12 +248,22 @@
       justify-self: end;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       font-family: 'Fira Code', monospace;
       font-size: 0.75rem;
-      color: var(--accent);
+      color: var(--cyan);
     }
 
+    /* Clean Neon Green Dot */
+    .status-dot-green {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 12px var(--green);
+    }
+
+    /* Main Viewport Shell */
     main {
       flex: 1;
       display: flex;
@@ -240,12 +276,13 @@
       margin: 0 auto;
       position: relative;
       overflow: hidden;
+      z-index: 1;
     }
 
     .views-wrapper {
       flex: 1;
       width: 100%;
-      max-width: 1180px;
+      max-width: 1220px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -256,7 +293,7 @@
     .view-panel {
       display: none;
       width: 100%;
-      animation: fadeIn 0.22s ease-in-out;
+      animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .view-panel.active-panel {
@@ -264,7 +301,7 @@
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(4px); }
+      from { opacity: 0; transform: translateY(6px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
@@ -280,8 +317,8 @@
 
     .hero-layout {
       display: grid;
-      grid-template-columns: 410px 1fr;
-      gap: 3.5rem;
+      grid-template-columns: 460px 1fr;
+      gap: 3.8rem;
       align-items: center;
       width: 100%;
     }
@@ -294,15 +331,39 @@
     }
 
     .photo-outer-border {
-      border: 1px solid var(--accent);
-      padding: 10px;
-      background: rgba(56, 189, 248, 0.03);
+      border: 1px solid transparent;
+      background: linear-gradient(#06090e, #06090e) padding-box, var(--gradient-primary) border-box;
+      padding: 12px;
       box-shadow: var(--glow);
       width: 100%;
-      max-width: 410px;
-      aspect-ratio: 1 / 1.15;
+      max-width: 460px;
+      aspect-ratio: 1 / 1.18;
       position: relative;
-      border-radius: 12px;
+      border-radius: 14px;
+      transition: all 0.3s ease;
+    }
+
+    .photo-outer-border::before,
+    .photo-outer-border::after {
+      content: '';
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      pointer-events: none;
+    }
+    .photo-outer-border::before {
+      top: -2px;
+      left: -2px;
+      border-top: 3px solid var(--accent);
+      border-left: 3px solid var(--accent);
+      border-top-left-radius: 4px;
+    }
+    .photo-outer-border::after {
+      bottom: -2px;
+      right: -2px;
+      border-bottom: 3px solid var(--cyan);
+      border-right: 3px solid var(--cyan);
+      border-bottom-right-radius: 4px;
     }
 
     .photo-inner-canvas {
@@ -324,6 +385,11 @@
       object-fit: cover;
       display: block;
       filter: none !important;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .photo-outer-border:hover .photo-inner-canvas img {
+      transform: scale(1.025);
     }
 
     .hero-content {
@@ -337,7 +403,7 @@
       font-size: 0.86rem;
       letter-spacing: 0.08em;
       color: var(--accent);
-      font-weight: 600;
+      font-weight: 700;
     }
 
     h1.hero-title {
@@ -345,7 +411,6 @@
       font-weight: 900;
       line-height: 1.04;
       letter-spacing: -0.03em;
-      color: var(--text);
     }
 
     .hero-role {
@@ -354,6 +419,13 @@
       letter-spacing: 0.02em;
       color: var(--text);
       font-weight: 500;
+    }
+
+    .hero-role span {
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
     }
 
     .social-row {
@@ -375,20 +447,22 @@
       display: inline-flex;
       align-items: center;
       gap: 0.45rem;
-      cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.25s ease;
     }
 
     .social-badge:hover {
-      background: var(--text);
-      color: var(--bg);
-      border-color: var(--text);
+      background: var(--gradient-primary);
+      color: #06090e;
+      border-color: transparent;
+      font-weight: 700;
+      transform: translateY(-2px);
     }
 
     .social-badge svg {
       stroke: currentColor;
     }
 
+    /* Timeline Cards */
     .home-timeline-row {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -412,8 +486,8 @@
 
     .home-timeline-card:hover {
       transform: translateY(-2px);
-      border-color: var(--accent);
-      box-shadow: var(--glow);
+      border-color: var(--text);
+      background: var(--card-bg);
     }
 
     .badge-pill {
@@ -421,9 +495,9 @@
       font-size: 0.72rem;
       padding: 2px 10px;
       border-radius: 9999px;
-      background: var(--pill-bg);
-      border: 1px solid var(--pill-border);
-      color: var(--accent);
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: var(--text);
       display: inline-block;
       width: fit-content;
       font-weight: 600;
@@ -444,6 +518,7 @@
       line-height: 1.4;
     }
 
+    /* Stage Fullscreen Detail */
     .stage-fullscreen-screen {
       background: var(--detail-bg);
       border: 1px solid var(--border);
@@ -471,7 +546,6 @@
       border-radius: 9999px;
       font-family: 'Fira Code', monospace;
       font-size: 0.75rem;
-      cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
@@ -479,14 +553,15 @@
     }
 
     .back-btn:hover {
-      background: var(--text);
-      color: var(--bg);
-      border-color: var(--text);
+      background: var(--gradient-primary);
+      color: #06090e;
+      border-color: transparent;
+      font-weight: 700;
     }
 
     .stage-grid-layout {
       display: grid;
-      grid-template-columns: 380px 1fr;
+      grid-template-columns: 420px 1fr;
       gap: 3.8rem;
       align-items: center;
       margin-top: 1rem;
@@ -501,11 +576,11 @@
 
     .stage-rounded-box {
       width: 100%;
-      height: 420px;
+      height: 450px;
       border-radius: 26px;
-      border: 2px solid var(--border);
+      border: 2px solid transparent;
+      background: linear-gradient(#06090e, #06090e) padding-box, var(--gradient-primary) border-box;
       box-shadow: var(--glow);
-      background: var(--card-bg);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -523,13 +598,13 @@
     }
 
     .stage-tag-pill {
-      background: var(--pill-bg);
-      border: 1px solid var(--pill-border);
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.2);
       border-radius: 9999px;
       padding: 4px 16px;
       font-family: 'Fira Code', monospace;
       font-size: 0.72rem;
-      color: var(--accent);
+      color: var(--text);
       font-weight: 600;
     }
 
@@ -568,11 +643,11 @@
       display: flex;
       flex-direction: column;
       gap: 0.4rem;
-      transition: all 0.2s ease;
+      transition: all 0.25s ease;
     }
 
     .stage-subcard:hover {
-      border-color: var(--accent);
+      border-color: var(--cyan);
       transform: translateY(-2px);
     }
 
@@ -580,7 +655,7 @@
       font-family: 'Fira Code', monospace;
       font-size: 0.85rem;
       font-weight: 700;
-      color: var(--accent);
+      color: var(--cyan);
     }
 
     .stage-subcard p {
@@ -597,6 +672,255 @@
       color: var(--text);
     }
 
+    /* Personal Info Dossier */
+    .about-dossier {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      width: 100%;
+    }
+
+    .dossier-banner {
+      background: var(--card-bg);
+      border: 1px solid transparent;
+      background: linear-gradient(var(--card-bg), var(--card-bg)) padding-box, var(--gradient-primary) border-box;
+      border-radius: 14px;
+      padding: 1.3rem 1.6rem;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 1.8rem;
+      align-items: center;
+      box-shadow: var(--glow);
+      position: relative;
+      overflow: hidden;
+      animation: bannerSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes bannerSlideIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .dossier-avatar-wrapper {
+      position: relative;
+      width: 130px;
+      height: 130px;
+      flex-shrink: 0;
+    }
+
+    .dossier-avatar-frame {
+      width: 100%;
+      height: 100%;
+      border-radius: 14px;
+      border: 2px solid transparent;
+      background: linear-gradient(#0f172a, #0f172a) padding-box, var(--gradient-primary) border-box;
+      padding: 4px;
+      box-shadow: 0 0 20px var(--cyan-glow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .dossier-avatar-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+      display: block;
+      transition: transform 0.35s ease;
+    }
+
+    .dossier-avatar-frame:hover {
+      transform: scale(1.04);
+      box-shadow: 0 0 28px rgba(245, 158, 11, 0.4);
+    }
+
+    .dossier-avatar-frame:hover img {
+      transform: scale(1.06);
+    }
+
+    .dossier-avatar-status {
+      position: absolute;
+      bottom: -2px;
+      right: -2px;
+      width: 14px;
+      height: 14px;
+      background: var(--gradient-primary);
+      border: 2.5px solid var(--bg);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--accent);
+      z-index: 2;
+    }
+
+    .dossier-headline h3 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #ffffff !important;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.35rem;
+    }
+
+    .dossier-headline p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .dossier-tags {
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+      align-items: flex-end;
+    }
+
+    .dossier-badge {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.72rem;
+      background: var(--gradient-subtle);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      color: var(--accent);
+      padding: 4px 12px;
+      border-radius: 9999px;
+      white-space: nowrap;
+      font-weight: 700;
+      transition: all 0.2s ease;
+    }
+
+    .dossier-badge.cyan-badge {
+      border-color: rgba(56, 189, 248, 0.35);
+      color: var(--cyan);
+    }
+
+    .dossier-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+      width: 100%;
+    }
+
+    .dossier-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.35rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+      transition: all 0.25s ease;
+      position: relative;
+    }
+
+    .dossier-card:hover {
+      border-color: transparent;
+      background: linear-gradient(var(--card-bg), var(--card-bg)) padding-box, var(--gradient-primary) border-box;
+      transform: translateY(-3px);
+      box-shadow: var(--glow);
+    }
+
+    .dossier-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 0.6rem;
+    }
+
+    .dossier-card-header h4 {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.88rem;
+      color: var(--accent);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .info-table {
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      font-size: 0.85rem;
+    }
+
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.05);
+      padding-bottom: 0.35rem;
+    }
+
+    .info-label {
+      font-family: 'Fira Code', monospace;
+      color: var(--muted);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .info-value {
+      color: var(--text);
+      font-weight: 500;
+      text-align: right;
+    }
+
+    .info-value.solid-clean {
+      color: var(--text) !important;
+      font-family: 'Fira Code', monospace;
+      font-weight: 600;
+    }
+
+    .dossier-spec-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.3rem;
+    }
+
+    .spec-item {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.74rem;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 5px 12px;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .spec-item:hover {
+      border-color: transparent;
+      background: var(--gradient-primary);
+      color: #06090e;
+      font-weight: 700;
+    }
+
+    .academic-quote-box {
+      background: #090e18;
+      border: 1px dashed rgba(56, 189, 248, 0.4);
+      border-radius: 12px;
+      padding: 0.9rem 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.78rem;
+      color: var(--muted);
+      transition: border-color 0.2s ease;
+    }
+
+    .academic-quote-box:hover {
+      border-color: var(--accent);
+    }
+
+    .academic-quote-box span {
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
+    }
+
+    /* Standard Cards */
     .grid-cards {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -611,12 +935,14 @@
       display: flex;
       flex-direction: column;
       gap: 0.6rem;
-      transition: all 0.2s ease;
+      transition: all 0.25s ease;
     }
 
     .card:hover {
-      border-color: var(--accent);
-      transform: translateY(-2px);
+      border-color: transparent;
+      background: linear-gradient(var(--card-bg), var(--card-bg)) padding-box, var(--gradient-primary) border-box;
+      transform: translateY(-3px);
+      box-shadow: var(--glow);
     }
 
     .card h3 {
@@ -628,8 +954,10 @@
     .card .meta {
       font-family: 'Fira Code', monospace;
       font-size: 0.75rem;
-      color: var(--accent);
-      font-weight: 600;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
     }
 
     .card p {
@@ -699,26 +1027,25 @@
     }
 
     .btn-solid {
-      background: var(--btn-solid-bg);
-      color: var(--btn-solid-text);
-      border: 1px solid var(--btn-solid-bg);
+      background: var(--gradient-primary);
+      color: #06090e;
+      border: none;
       border-radius: 6px;
-      cursor: pointer;
       font-family: 'Fira Code', monospace;
       font-size: 0.82rem;
       font-weight: 700;
-      transition: all 0.2s ease;
+      transition: all 0.25s ease;
     }
 
     .btn-solid:hover {
-      background: var(--btn-solid-hover);
-      border-color: var(--btn-solid-hover);
+      box-shadow: 0 0 18px var(--accent-glow);
+      transform: translateY(-2px);
     }
 
-    /* Fixed Position Bottom Navigation Bar */
+    /* Fixed Bottom Navigation Bar */
     .page-bottom-nav {
       display: grid;
-      grid-template-columns: 180px 1fr 180px;
+      grid-template-columns: 200px 1fr 200px;
       align-items: center;
       width: 100%;
       max-width: 1180px;
@@ -729,22 +1056,14 @@
       flex-shrink: 0;
     }
 
-    .nav-slot-left {
-      justify-self: start;
-    }
-
+    .nav-slot-left { justify-self: start; }
     .nav-slot-center {
       justify-self: center;
       font-family: 'Fira Code', monospace;
       font-size: 0.75rem;
-      color: var(--accent);
-      font-weight: 700;
       letter-spacing: 0.08em;
     }
-
-    .nav-slot-right {
-      justify-self: end;
-    }
+    .nav-slot-right { justify-self: end; }
 
     .page-nav-btn {
       background: var(--card-bg);
@@ -755,26 +1074,27 @@
       font-weight: 600;
       padding: 7px 18px;
       border-radius: 9999px;
-      cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 0.45rem;
       transition: all 0.2s ease;
-      width: 155px;
+      width: 180px;
       justify-content: center;
       white-space: nowrap;
     }
 
     .page-nav-btn:hover:not(:disabled) {
-      background: var(--accent);
-      color: var(--bg);
-      border-color: var(--accent);
+      background: var(--gradient-primary);
+      color: #06090e;
+      font-weight: 700;
+      border-color: transparent;
       box-shadow: 0 0 16px var(--accent-glow);
+      transform: translateY(-1px);
     }
 
     .page-nav-btn:disabled {
       opacity: 0.18;
-      cursor: default;
+      pointer-events: none;
       border-color: var(--border);
     }
 
@@ -800,12 +1120,21 @@
       .home-timeline-row,
       .stage-grid-layout,
       .stage-cards-triad,
+      .dossier-grid,
+      .dossier-banner,
       .contact-container {
         grid-template-columns: 1fr;
       }
       .photo-column {
-        max-width: 280px;
+        max-width: 320px;
         margin: 0 auto;
+      }
+      .dossier-banner {
+        grid-template-columns: auto 1fr;
+      }
+      .dossier-tags {
+        grid-column: span 2;
+        align-items: flex-start;
       }
       .page-bottom-nav {
         grid-template-columns: 1fr 1fr;
@@ -815,18 +1144,26 @@
         display: none;
       }
       .page-nav-btn {
-        width: 130px;
+        width: 140px;
       }
     }
   </style>
 </head>
 <body>
 
+  <!-- 3D Perspective Grid Background -->
+  <div class="bg-3d-scene">
+    <div class="bg-3d-plane" id="bg3dPlane"></div>
+  </div>
+
   <!-- Fullscreen Loading Intro Screen -->
   <div id="loader-screen">
     <div class="loader-content">
       <div class="loader-tag">// THIS IS ME</div>
-      <h1 class="loader-name">Steven Gennesie<br>Laña<span class="dot">.</span></h1>
+      <h1 class="loader-name">
+        <span class="gradient-text">Steven Gennesie</span><br>
+        <span class="gradient-text">Laña</span><span class="dot">.</span>
+      </h1>
       <div class="loader-bar-track">
         <div class="loader-bar-fill"></div>
       </div>
@@ -844,7 +1181,7 @@
 
     <nav>
       <button class="active" onclick="switchView('home', this)">HOME</button>
-      <button onclick="switchView('about', this)">ABOUT</button>
+      <button onclick="switchView('personal-info', this)">PERSONAL INFO</button>
       <button onclick="switchView('family', this)">FAMILY</button>
       <button onclick="switchView('education', this)">EDUCATION</button>
       <button onclick="switchView('skills', this)">SKILLS</button>
@@ -853,24 +1190,19 @@
     </nav>
 
     <div class="header-right">
-      <span>● CITCS-UC</span>
+      <div class="status-dot-green"></div>
+      <span>CITCS-UC</span>
     </div>
   </header>
 
   <!-- Main Viewport -->
   <main>
-
-    <!-- Scrollable View Container (Keeps navigation bar fixed at bottom) -->
     <div class="views-wrapper">
 
       <!-- 0. HOME VIEW -->
       <div id="view-home" class="view-panel active-panel">
         <div class="home-wrapper">
-
-          <!-- Top Hero Row -->
           <div class="hero-layout">
-
-            <!-- Left Photo Column -->
             <div class="photo-column">
               <div class="photo-outer-border">
                 <div class="photo-inner-canvas">
@@ -879,13 +1211,14 @@
               </div>
             </div>
 
-            <!-- Right Content Details -->
             <div class="hero-content">
               <div class="mono-tag">// WELCOME TO MY PORTFOLIO</div>
-              <h1 class="hero-title">Steven Gennesie<br>B. Laña</h1>
-              <div class="hero-role">Bachelor of Science in Information Technology</div>
+              <h1 class="hero-title">
+                <span class="gradient-text">Steven Gennesie</span><br>
+                <span class="gradient-text">B. Laña</span>
+              </h1>
+              <div class="hero-role">Bachelor of Science in Information Technology <span>[NET&amp;SEC]</span></div>
 
-              <!-- Badges Row: GitHub, Facebook, and Contact Me -->
               <div class="social-row">
                 <a href="https://github.com/stevengennesielana-svg" target="_blank" class="social-badge">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -908,30 +1241,25 @@
                 </button>
               </div>
             </div>
-
           </div>
 
-          <!-- PPF Timeline Cards Below -->
           <div class="home-timeline-row">
             <div class="home-timeline-card" onclick="openStageDetail('past')">
               <span class="badge-pill">Past</span>
               <h4>Where I started <span>&rarr;</span></h4>
               <p>Early foundations, schooling.</p>
             </div>
-
             <div class="home-timeline-card" onclick="openStageDetail('present')">
               <span class="badge-pill">Present</span>
               <h4>What I’m doing now <span>&rarr;</span></h4>
-              <p>College at UC, Networking & Security</p>
+              <p>College at UC, Networking &amp; Security</p>
             </div>
-
             <div class="home-timeline-card" onclick="openStageDetail('future')">
               <span class="badge-pill">Future</span>
               <h4>Where I’m going <span>&rarr;</span></h4>
-              <p>The security defender & engineer I'm becoming</p>
+              <p>The security defender &amp; engineer I'm becoming</p>
             </div>
           </div>
-
         </div>
       </div>
 
@@ -939,21 +1267,18 @@
       <div id="view-stage-detail" class="view-panel">
         <div class="stage-fullscreen-screen">
           <button class="back-btn" onclick="switchView('home')">&larr; Return to Home</button>
-
           <div class="stage-grid-layout">
             <div class="stage-left-box">
               <div class="stage-rounded-box">
                 <img id="stageImgDisplay" src="profile.jpg.jpg" alt="Stage Photo" />
               </div>
-              <div class="stage-tag-pill" id="stageTagPill">Past</div>
+              <div class="stage-tag-pill">Past</div>
             </div>
-
             <div class="stage-right-content">
               <h2 class="stage-heading" id="stageHeading">Where I started</h2>
               <p class="stage-subtext" id="stageSubtext">
                 Write about your early years: where you grew up and the moment you got curious about computers.
               </p>
-
               <div class="stage-cards-triad">
                 <div class="stage-subcard">
                   <h5 id="card1Title">Beginnings</h5>
@@ -961,7 +1286,7 @@
                 </div>
                 <div class="stage-subcard">
                   <h5 id="card2Title">Education</h5>
-                  <p id="card2Desc">Natividad Central School & Movers Academy Incorporated.</p>
+                  <p id="card2Desc">Natividad Central School &amp; Movers Academy Incorporated.</p>
                 </div>
                 <div class="stage-subcard">
                   <h5 id="card3Title">Turning point</h5>
@@ -970,35 +1295,112 @@
               </div>
             </div>
           </div>
-
         </div>
       </div>
 
-      <!-- 1. ABOUT VIEW -->
-      <div id="view-about" class="view-panel">
-        <div class="mono-tag">// 01. PROFILE</div>
-        <h2 class="section-title">About Me</h2>
-        <div class="grid-cards">
-          <div class="card">
-            <h3>College Student</h3>
-            <span class="meta">18 Years Old</span>
-            <p>
-              Passionate about technology, programming, and building a safer digital world. Currently focused on defensive security, networking, and clean software architecture. Driven by curiosity, discipline, and a strong ambition to succeed.
-            </p>
+      <!-- 1. PERSONAL INFO VIEW -->
+      <div id="view-personal-info" class="view-panel">
+        <div class="mono-tag">// MY PROFILE &amp; CREDENTIALS</div>
+        <h2 class="section-title"><span class="gradient-text">Personal Info</span></h2>
+
+        <div class="about-dossier">
+          <div class="dossier-banner">
+            <div class="dossier-avatar-wrapper">
+              <div class="dossier-avatar-frame" title="Steven Gennesie B. Laña">
+                <img src="profile.jpg.jpg" alt="Steven Gennesie B. Laña" />
+              </div>
+              <div class="dossier-avatar-status"></div>
+            </div>
+            <div class="dossier-headline">
+              <h3>Steven Gennesie B. Laña</h3>
+              <p>
+                Specializing in Network and Security. Disciplined, motivated, and committed to developing practical competencies in defensive architectures and secure IT infrastructure.
+              </p>
+            </div>
+            <div class="dossier-tags">
+              <span class="dossier-badge">BSIT NET&amp;SEC</span>
+              <span class="dossier-badge cyan-badge">1ST YEAR // CITCS</span>
+            </div>
           </div>
-          <div class="card">
-            <h3>Sports & Athletics</h3>
-            <span class="meta">Physical Discipline</span>
-            <p>
-              Engaging in sports maintains physical endurance, fast reflex decision-making under pressure, and a team-first mindset.
-            </p>
+
+          <div class="dossier-grid">
+            <div class="dossier-card">
+              <div class="dossier-card-header">
+                <h4>BIOGRAPHICAL DATA &amp; ACADEMIC</h4>
+                <span class="badge-pill">ACTIVE</span>
+              </div>
+              <div class="info-table">
+                <div class="info-row">
+                  <span class="info-label">Name</span>
+                  <span class="info-value">Steven Gennesie B. Laña</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">Gender</span>
+                  <span class="info-value">Male</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">Age</span>
+                  <span class="info-value">18 Years Old</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">Birthday</span>
+                  <span class="info-value">November 28, 2007</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">Program</span>
+                  <span class="info-value solid-clean">BSIT NETWORK & SECURITY</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">College</span>
+                  <span class="info-value">College of Information Technology and Computer Science</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">Year Level</span>
+                  <span class="info-value">1st Year</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">School</span>
+                  <span class="info-value">University of the Cordilleras</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="dossier-card">
+              <div class="dossier-card-header">
+                <h4> TECHNICAL SKILLS &amp; DETAILS</h4>
+                <span class="badge-pill">ATTRIBUTES</span>
+              </div>
+              <div class="info-table">
+                <div class="info-row">
+                  <span class="info-label">Address</span>
+                  <span class="info-value">Poblacion West, Natividad, Pangasinan</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">Email</span>
+                  <span class="info-value solid-clean">stevengennesielana@gmail.com</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">Phone Number</span>
+                  <span class="info-value" style="color: var(--muted);">09456379988</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">Hobbies</span>
+                  <span class="info-value">Dancing, Playing instruments, Mobile games</span>
+                </div>
+              </div>
+              <div style="margin-top: 0.4rem;">
+                <span class="info-label" style="display: block; margin-bottom: 0.35rem;">Core Skills:</span>
+                <div class="dossier-spec-list">
+                  <span class="spec-item">01. Network Packet &amp; Traffic Analysis</span>
+                  <span class="spec-item">02. Defensive Security &amp; System Hardening</span>
+                  <span class="spec-item">03. Python Automation Scripting</span>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="card">
-            <h3>Gaming & Strategy</h3>
-            <span class="meta">Analytical Mindset</span>
-            <p>
-              Competitive gaming sharpens tactical planning and patience, which directly informs how I evaluate cybersecurity risks and software design.
-            </p>
+
+          <div class="academic-quote-box">
+            <span>TERMINAL // ACADEMIC STATEMENT:</span> "Information technology demands unbroken accuracy. I approach coursework and network defense with discipline, verifiable logic, and academic integrity."
           </div>
         </div>
       </div>
@@ -1006,17 +1408,17 @@
       <!-- 2. FAMILY VIEW -->
       <div id="view-family" class="view-panel">
         <div class="mono-tag">// 02. FOUNDATION</div>
-        <h2 class="section-title">Family & Roots</h2>
+        <h2 class="section-title">Family &amp; Roots</h2>
         <div class="grid-cards">
           <div class="card">
-            <h3>Family Support & Values</h3>
+            <h3>Family Support &amp; Values</h3>
             <span class="meta">Core Inspiration</span>
             <p>
               The continuous pillar of encouragement behind my academic journey, inspiring my dedication, moral compass, and pursuit of excellence.
             </p>
           </div>
           <div class="card">
-            <h3>Work Ethic & Principles</h3>
+            <h3>Work Ethic &amp; Principles</h3>
             <span class="meta">Guiding Anchor</span>
             <p>
               Growing up surrounded by discipline and perseverance taught me the importance of resilience, humility, and always striving to do my best.
@@ -1045,7 +1447,7 @@
             </p>
           </div>
           <div class="card">
-            <h3>College / Undergraduate</h3>
+            <h3>College</h3>
             <span class="meta">University of the Cordilleras | Current</span>
             <p>
               Currently pursuing university education focused on computing fundamentals, system architecture, programming, and secure networking infrastructure.
@@ -1057,7 +1459,7 @@
       <!-- 4. SKILLS VIEW -->
       <div id="view-skills" class="view-panel">
         <div class="mono-tag">// 04. TOOLKIT</div>
-        <h2 class="section-title">Skills & Competencies</h2>
+        <h2 class="section-title">Skills &amp; Competencies</h2>
         <div class="grid-cards">
           <div class="card">
             <h3>Cybersecurity</h3>
@@ -1066,7 +1468,7 @@
             </p>
           </div>
           <div class="card">
-            <h3>Programming & Logic</h3>
+            <h3>Programming &amp; Logic</h3>
             <p>
               Python, Algorithmic Logic, Web Development Fundamentals, Automation Scripting.
             </p>
@@ -1074,7 +1476,7 @@
           <div class="card">
             <h3>Soft Skills</h3>
             <p>
-              Strategic Problem Solving, Adaptive Thinking, Team Collaboration, High Discipline & Drive.
+              Strategic Problem Solving, Adaptive Thinking, Team Collaboration, High Discipline &amp; Drive.
             </p>
           </div>
         </div>
@@ -1113,7 +1515,7 @@
               Have an opportunity, project, or want to discuss security? Drop a direct message below.
             </p>
             <div style="font-family: 'Fira Code', monospace; font-size: 0.8rem; color: var(--text);">
-              <strong style="color: var(--accent);">Email:</strong><br>
+              <strong class="gradient-text">Email:</strong><br>
               stevengennesielana@gmail.com
             </div>
             <div class="social-row" style="margin-top: 0.3rem;">
@@ -1135,7 +1537,7 @@
               <label for="message">Message</label>
               <textarea id="message" name="message" placeholder="Type your message here..." required></textarea>
             </div>
-            <button type="submit" class="btn-solid" style="justify-content: center; padding: 8px;">
+            <button type="submit" class="btn-solid" style="justify-content: center; padding: 10px;">
               Send Message &rarr;
             </button>
           </form>
@@ -1153,16 +1555,15 @@
       </div>
 
       <div class="nav-slot-center">
-        <span id="pageCounter">HOME</span>
+        <span id="pageCounter" class="gradient-text">HOME</span>
       </div>
 
       <div class="nav-slot-right">
         <button class="page-nav-btn" id="nextPageBtn" onclick="navigatePages(1)">
-          <span id="nextPageName">ABOUT</span> &rarr;
+          <span id="nextPageName">PERSONAL INFO</span> &rarr;
         </button>
       </div>
     </div>
-
   </main>
 
   <!-- Footer -->
@@ -1172,20 +1573,28 @@
   </footer>
 
   <script>
-    // Intro loader handling
+    // Intro Loader Handling
     window.addEventListener('load', () => {
       const loader = document.getElementById('loader-screen');
       setTimeout(() => {
         if (loader) {
           loader.classList.add('fade-out');
-          setTimeout(() => {
-            loader.style.display = 'none';
-          }, 600);
+          setTimeout(() => { loader.style.display = 'none'; }, 600);
         }
       }, 1600);
     });
 
-    const pages = ['home', 'about', 'family', 'education', 'skills', 'projects', 'contact'];
+    // Subtle 3D Perspective Plane Tilt on Mouse Move
+    const plane = document.getElementById('bg3dPlane');
+    window.addEventListener('mousemove', (e) => {
+      if (!plane) return;
+      const xRatio = (e.clientX / window.innerWidth) - 0.5;
+      const yRatio = (e.clientY / window.innerHeight) - 0.5;
+      plane.style.transform = `rotateX(${16 + yRatio * 10}deg) rotateY(${xRatio * -10}deg) translateZ(0)`;
+    });
+
+    // Page Navigation State
+    const pages = ['home', 'personal-info', 'family', 'education', 'skills', 'projects', 'contact'];
     let currentPageIndex = 0;
 
     const stageData = {
@@ -1218,6 +1627,10 @@
       }
     };
 
+    function formatPageLabel(name) {
+      return name === 'personal-info' ? 'PERSONAL INFO' : name.toUpperCase();
+    }
+
     function updateBottomNav() {
       const prevBtn = document.getElementById('prevPageBtn');
       const nextBtn = document.getElementById('nextPageBtn');
@@ -1230,7 +1643,7 @@
 
       if (prevIndex >= 0) {
         prevBtn.disabled = false;
-        prevPageName.innerText = pages[prevIndex].toUpperCase();
+        prevPageName.innerText = formatPageLabel(pages[prevIndex]);
       } else {
         prevBtn.disabled = true;
         prevPageName.innerText = 'START';
@@ -1238,13 +1651,13 @@
 
       if (nextIndex < pages.length) {
         nextBtn.disabled = false;
-        nextPageName.innerText = pages[nextIndex].toUpperCase();
+        nextPageName.innerText = formatPageLabel(pages[nextIndex]);
       } else {
         nextBtn.disabled = true;
         nextPageName.innerText = 'END';
       }
 
-      counter.innerText = pages[currentPageIndex].toUpperCase();
+      counter.innerText = formatPageLabel(pages[currentPageIndex]);
     }
 
     function switchView(viewName, buttonElement) {
@@ -1259,7 +1672,8 @@
 
       document.querySelectorAll('nav button').forEach(btn => {
         btn.classList.remove('active');
-        if (btn.innerText.toLowerCase() === viewName.toLowerCase()) {
+        const btnText = btn.innerText.toLowerCase().replace(/\s+/g, '-');
+        if (btnText === viewName.toLowerCase()) {
           btn.classList.add('active');
         }
       });
@@ -1295,7 +1709,6 @@
 
       switchView('stage-detail');
 
-      document.getElementById('stageTagPill').innerText = data.tag;
       document.getElementById('stageImgDisplay').src = data.image;
       document.getElementById('stageHeading').innerText = data.heading;
       document.getElementById('stageSubtext').innerText = data.subtext;
