@@ -2,7 +2,7 @@
 <html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="viewport" content="width=1400, user-scalable=no" />
   <title>Steven Gennesie B. Laña - Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,13 +35,12 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      -webkit-tap-highlight-color: transparent;
     }
 
     html, body {
       height: 100vh;
-      height: 100dvh;
       width: 100vw;
+      min-width: 1400px;
       overflow: hidden;
       position: fixed;
       inset: 0;
@@ -57,7 +56,6 @@
       cursor: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='12' cy='12' r='8' stroke='%2338bdf8' stroke-width='1.5' stroke-opacity='0.8' stroke-dasharray='2 2'/%3E%3Ccircle cx='12' cy='12' r='2' fill='%23f59e0b'/%3E%3Cpath d='M12 1v5M12 18v5M1 12h5M18 12h5' stroke='%2338bdf8' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E") 12 12, crosshair;
     }
 
-    /* 3D INTERACTIVE PERSPECTIVE GRID BACKGROUND */
     .bg-3d-scene {
       position: fixed;
       inset: 0;
@@ -96,7 +94,6 @@
       display: inline-block;
     }
 
-    /* Loader */
     #loader-screen {
       position: fixed;
       inset: 0;
@@ -145,7 +142,7 @@
 
     .loader-name {
       font-family: 'Inter', sans-serif;
-      font-size: clamp(2.4rem, 6.5vw, 5.2rem);
+      font-size: clamp(3rem, 6.5vw, 5.2rem);
       font-weight: 900;
       line-height: 1.05;
       letter-spacing: -0.04em;
@@ -157,7 +154,7 @@
     }
 
     .loader-bar-track {
-      width: clamp(200px, 28vw, 360px);
+      width: clamp(220px, 28vw, 360px);
       height: 3px;
       background: rgba(255, 255, 255, 0.12);
       border-radius: 9999px;
@@ -180,57 +177,47 @@
       100% { width: 100%; }
     }
 
-    /* Header */
     header {
-      height: 56px;
+      height: 60px;
       background: var(--header-bg);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(8px);
       border-bottom: 1px solid var(--border);
       display: grid;
-      grid-template-columns: auto 1fr auto;
+      grid-template-columns: 1fr auto 1fr;
       align-items: center;
-      padding: 0 1.2rem;
+      padding: 0 2rem;
       width: 100%;
       flex-shrink: 0;
       z-index: 100;
-      gap: 0.8rem;
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.6rem;
       font-family: 'Fira Code', monospace;
       font-weight: 700;
-      font-size: 1rem;
+      font-size: 1.05rem;
       letter-spacing: 0.05em;
+      justify-self: start;
       color: var(--text);
-      white-space: nowrap;
     }
 
     .brand-icon {
-      width: 20px;
-      height: 20px;
+      width: 22px;
+      height: 22px;
       stroke: var(--cyan);
       fill: none;
       stroke-width: 2;
     }
 
     nav {
+      grid-column: 2;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 0.4rem;
+      gap: 0.5rem;
       white-space: nowrap;
-      overflow-x: auto;
-      scrollbar-width: none;
-      -webkit-overflow-scrolling: touch;
-      padding: 4px 0;
-    }
-
-    nav::-webkit-scrollbar {
-      display: none;
     }
 
     nav button {
@@ -238,13 +225,12 @@
       border: 1px solid transparent;
       color: var(--muted);
       font-family: 'Fira Code', monospace;
-      font-size: 0.72rem;
+      font-size: 0.74rem;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-      padding: 5px 11px;
+      letter-spacing: 0.06em;
+      padding: 6px 12px;
       border-radius: 9999px;
       transition: all 0.2s ease;
-      flex-shrink: 0;
     }
 
     nav button:hover,
@@ -257,31 +243,31 @@
     }
 
     .header-right {
+      grid-column: 3;
+      justify-self: end;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       font-family: 'Fira Code', monospace;
-      font-size: 0.72rem;
+      font-size: 0.75rem;
       color: var(--cyan);
-      white-space: nowrap;
     }
 
     .status-dot-green {
-      width: 7px;
-      height: 7px;
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
       background: var(--green);
-      box-shadow: 0 0 10px var(--green);
+      box-shadow: 0 0 12px var(--green);
     }
 
-    /* Main Viewport Shell */
     main {
       flex: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
-      padding: 0.6rem 1.4rem 0.5rem;
+      padding: 0.8rem 3rem 0.6rem;
       max-width: 1450px;
       width: 100%;
       margin: 0 auto;
@@ -297,10 +283,16 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow-y: auto;
-      overflow-x: hidden;
-      padding-right: 2px;
-      -webkit-overflow-scrolling: touch;
+      overflow: hidden;
+      padding-right: 0;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    .views-wrapper::-webkit-scrollbar {
+      display: none;
+      width: 0;
+      height: 0;
     }
 
     .view-panel {
@@ -323,15 +315,15 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 1.2rem;
+      gap: 1.5rem;
       width: 100%;
       margin: 0 auto;
     }
 
     .hero-layout {
       display: grid;
-      grid-template-columns: 440px 1fr;
-      gap: 3.2rem;
+      grid-template-columns: 460px 1fr;
+      gap: 3.8rem;
       align-items: center;
       width: 100%;
     }
@@ -341,17 +333,16 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      width: 100%;
     }
 
     .photo-outer-border {
       border: 1px solid transparent;
       background: linear-gradient(#06090e, #06090e) padding-box, var(--gradient-primary) border-box;
-      padding: 10px;
+      padding: 12px;
       box-shadow: var(--glow);
       width: 100%;
-      max-width: 440px;
-      aspect-ratio: 1 / 1.15;
+      max-width: 460px;
+      aspect-ratio: 1 / 1.18;
       position: relative;
       border-radius: 14px;
       transition: all 0.3s ease;
@@ -361,8 +352,8 @@
     .photo-outer-border::after {
       content: '';
       position: absolute;
-      width: 16px;
-      height: 16px;
+      width: 18px;
+      height: 18px;
       pointer-events: none;
     }
     .photo-outer-border::before {
@@ -402,30 +393,34 @@
       transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
+    .photo-outer-border:hover .photo-inner-canvas img {
+      transform: scale(1.025);
+    }
+
     .hero-content {
       display: flex;
       flex-direction: column;
-      gap: 0.9rem;
+      gap: 1.1rem;
     }
 
     .mono-tag {
       font-family: 'Fira Code', monospace;
-      font-size: 0.8rem;
+      font-size: 0.86rem;
       letter-spacing: 0.08em;
       color: var(--accent);
       font-weight: 700;
     }
 
     h1.hero-title {
-      font-size: clamp(2.2rem, 4.5vw, 4rem);
+      font-size: clamp(2.8rem, 4.8vw, 4.2rem);
       font-weight: 900;
-      line-height: 1.05;
+      line-height: 1.04;
       letter-spacing: -0.03em;
     }
 
     .hero-role {
       font-family: 'Fira Code', monospace;
-      font-size: clamp(0.95rem, 1.8vw, 1.15rem);
+      font-size: 1.15rem;
       letter-spacing: 0.02em;
       color: var(--text);
       font-weight: 500;
@@ -440,15 +435,15 @@
 
     .social-row {
       display: flex;
-      gap: 0.6rem;
+      gap: 0.8rem;
       flex-wrap: wrap;
-      margin-top: 0.2rem;
+      margin-top: 0.4rem;
     }
 
     .social-badge {
       font-family: 'Fira Code', monospace;
-      font-size: 0.74rem;
-      padding: 6px 14px;
+      font-size: 0.78rem;
+      padding: 7px 16px;
       border: 1px solid var(--border);
       border-radius: 9999px;
       background: var(--card-bg);
@@ -456,7 +451,7 @@
       text-decoration: none;
       display: inline-flex;
       align-items: center;
-      gap: 0.4rem;
+      gap: 0.45rem;
       transition: all 0.25s ease;
     }
 
@@ -472,37 +467,37 @@
       stroke: currentColor;
     }
 
-    /* Timeline Cards */
     .home-timeline-row {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
+      gap: 1.2rem;
       width: 100%;
     }
 
     .home-timeline-card {
       background: var(--card-bg);
       border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 1rem 1.15rem;
+      border-radius: 16px;
+      padding: 1.15rem 1.35rem;
       color: var(--text);
       cursor: pointer;
       transition: all 0.2s ease;
       display: flex;
       flex-direction: column;
-      gap: 0.35rem;
+      gap: 0.4rem;
       text-align: left;
     }
 
     .home-timeline-card:hover {
       transform: translateY(-2px);
       border-color: var(--text);
+      background: var(--card-bg);
     }
 
     .badge-pill {
       font-family: 'Fira Code', monospace;
-      font-size: 0.7rem;
-      padding: 2px 9px;
+      font-size: 0.72rem;
+      padding: 2px 10px;
       border-radius: 9999px;
       background: rgba(255, 255, 255, 0.12);
       border: 1px solid rgba(255, 255, 255, 0.15);
@@ -513,7 +508,7 @@
     }
 
     .home-timeline-card h4 {
-      font-size: 0.98rem;
+      font-size: 1.05rem;
       font-weight: 700;
       color: var(--text);
       display: flex;
@@ -522,22 +517,21 @@
     }
 
     .home-timeline-card p {
-      font-size: 0.78rem;
+      font-size: 0.82rem;
       color: var(--muted);
-      line-height: 1.35;
+      line-height: 1.4;
     }
 
-    /* Stage Fullscreen Detail */
     .stage-fullscreen-screen {
       background: var(--detail-bg);
       border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 1.8rem 2.2rem;
+      border-radius: 28px;
+      padding: 2.2rem 3.4rem;
       position: relative;
       width: 100%;
       max-width: 1480px;
       margin: 0 auto;
-      min-height: 420px;
+      min-height: 480px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -546,20 +540,19 @@
 
     .back-btn {
       position: absolute;
-      top: 16px;
-      left: 18px;
+      top: 20px;
+      left: 24px;
       background: var(--card-bg);
       border: 1px solid var(--border);
       color: var(--text);
-      padding: 5px 12px;
+      padding: 6px 14px;
       border-radius: 9999px;
       font-family: 'Fira Code', monospace;
-      font-size: 0.72rem;
+      font-size: 0.75rem;
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
       transition: all 0.2s ease;
-      z-index: 5;
     }
 
     .back-btn:hover {
@@ -571,8 +564,8 @@
 
     .stage-grid-layout {
       display: grid;
-      grid-template-columns: 360px 1fr;
-      gap: 2.8rem;
+      grid-template-columns: 420px 1fr;
+      gap: 3.8rem;
       align-items: center;
       margin-top: 1rem;
     }
@@ -581,13 +574,13 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.7rem;
+      gap: 0.8rem;
     }
 
     .stage-rounded-box {
       width: 100%;
-      height: 380px;
-      border-radius: 20px;
+      height: 450px;
+      border-radius: 26px;
       border: 2px solid transparent;
       background: linear-gradient(#06090e, #06090e) padding-box, var(--gradient-primary) border-box;
       box-shadow: var(--glow);
@@ -596,6 +589,7 @@
       justify-content: center;
       position: relative;
       overflow: hidden;
+      padding: 0;
     }
 
     .stage-rounded-box img {
@@ -603,15 +597,16 @@
       height: 100%;
       object-fit: cover;
       display: block;
+      filter: none !important;
     }
 
     .stage-tag-pill {
       background: rgba(255, 255, 255, 0.12);
       border: 1px solid rgba(255, 255, 255, 0.2);
       border-radius: 9999px;
-      padding: 3px 14px;
+      padding: 4px 16px;
       font-family: 'Fira Code', monospace;
-      font-size: 0.7rem;
+      font-size: 0.72rem;
       color: var(--text);
       font-weight: 600;
     }
@@ -619,38 +614,38 @@
     .stage-right-content {
       display: flex;
       flex-direction: column;
-      gap: 0.9rem;
+      gap: 1rem;
     }
 
     .stage-heading {
-      font-size: clamp(1.6rem, 3.2vw, 2.6rem);
+      font-size: clamp(2rem, 3.6vw, 2.8rem);
       font-weight: 800;
       color: var(--text);
       letter-spacing: -0.02em;
     }
 
     .stage-subtext {
-      font-size: 0.9rem;
+      font-size: 0.96rem;
       color: var(--muted);
-      line-height: 1.5;
+      line-height: 1.6;
       max-width: 740px;
     }
 
     .stage-cards-triad {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 0.8rem;
-      margin-top: 0.3rem;
+      gap: 1rem;
+      margin-top: 0.4rem;
     }
 
     .stage-subcard {
       background: var(--card-bg);
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1rem 0.95rem;
+      border-radius: 14px;
+      padding: 1.2rem 1.1rem;
       display: flex;
       flex-direction: column;
-      gap: 0.35rem;
+      gap: 0.4rem;
       transition: all 0.25s ease;
     }
 
@@ -661,30 +656,29 @@
 
     .stage-subcard h5 {
       font-family: 'Fira Code', monospace;
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       font-weight: 700;
       color: var(--cyan);
     }
 
     .stage-subcard p {
-      font-size: 0.74rem;
+      font-size: 0.78rem;
       color: var(--muted);
-      line-height: 1.4;
+      line-height: 1.45;
     }
 
     .section-title {
-      font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+      font-size: 1.8rem;
       font-weight: 800;
       margin-bottom: 0.9rem;
       letter-spacing: -0.02em;
       color: var(--text);
     }
 
-    /* Personal Info Dossier */
     .about-dossier {
       display: flex;
       flex-direction: column;
-      gap: 1rem;
+      gap: 0.85rem;
       width: 100%;
     }
 
@@ -693,14 +687,20 @@
       border: 1px solid transparent;
       background: linear-gradient(var(--card-bg), var(--card-bg)) padding-box, var(--gradient-primary) border-box;
       border-radius: 14px;
-      padding: 1.1rem 1.4rem;
+      padding: 1rem 1.4rem;
       display: grid;
       grid-template-columns: auto 1fr auto;
-      gap: 1.4rem;
+      gap: 1.5rem;
       align-items: center;
       box-shadow: var(--glow);
       position: relative;
       overflow: hidden;
+      animation: bannerSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes bannerSlideIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .dossier-avatar-wrapper {
@@ -713,41 +713,52 @@
     .dossier-avatar-frame {
       width: 100%;
       height: 100%;
-      border-radius: 12px;
+      border-radius: 14px;
       border: 2px solid transparent;
       background: linear-gradient(#0f172a, #0f172a) padding-box, var(--gradient-primary) border-box;
-      padding: 3px;
-      box-shadow: 0 0 18px var(--cyan-glow);
+      padding: 4px;
+      box-shadow: 0 0 20px var(--cyan-glow);
       display: flex;
       align-items: center;
       justify-content: center;
       position: relative;
       overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .dossier-avatar-frame img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      border-radius: 9px;
+      border-radius: 10px;
       display: block;
+      transition: transform 0.35s ease;
+    }
+
+    .dossier-avatar-frame:hover {
+      transform: scale(1.04);
+      box-shadow: 0 0 28px rgba(245, 158, 11, 0.4);
+    }
+
+    .dossier-avatar-frame:hover img {
+      transform: scale(1.06);
     }
 
     .dossier-avatar-status {
       position: absolute;
       bottom: -2px;
       right: -2px;
-      width: 13px;
-      height: 13px;
+      width: 14px;
+      height: 14px;
       background: var(--gradient-primary);
-      border: 2px solid var(--bg);
+      border: 2.5px solid var(--bg);
       border-radius: 50%;
-      box-shadow: 0 0 8px var(--accent);
+      box-shadow: 0 0 10px var(--accent);
       z-index: 2;
     }
 
     .dossier-headline h3 {
-      font-size: 1.2rem;
+      font-size: 1.22rem;
       font-weight: 800;
       color: #ffffff !important;
       letter-spacing: -0.02em;
@@ -755,7 +766,7 @@
     }
 
     .dossier-headline p {
-      font-size: 0.82rem;
+      font-size: 0.84rem;
       color: var(--muted);
       line-height: 1.45;
     }
@@ -763,20 +774,21 @@
     .dossier-tags {
       display: flex;
       flex-direction: column;
-      gap: 0.35rem;
+      gap: 0.45rem;
       align-items: flex-end;
     }
 
     .dossier-badge {
       font-family: 'Fira Code', monospace;
-      font-size: 0.68rem;
+      font-size: 0.72rem;
       background: var(--gradient-subtle);
       border: 1px solid rgba(245, 158, 11, 0.3);
       color: var(--accent);
-      padding: 3px 10px;
+      padding: 4px 12px;
       border-radius: 9999px;
       white-space: nowrap;
       font-weight: 700;
+      transition: all 0.2s ease;
     }
 
     .dossier-badge.cyan-badge {
@@ -787,20 +799,27 @@
     .dossier-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 1rem;
+      gap: 1.1rem;
       width: 100%;
     }
 
     .dossier-card {
       background: var(--card-bg);
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.1rem 1.25rem;
+      border-radius: 14px;
+      padding: 1.1rem 1.35rem;
       display: flex;
       flex-direction: column;
-      gap: 0.75rem;
+      gap: 0.65rem;
       transition: all 0.25s ease;
       position: relative;
+    }
+
+    .dossier-card:hover {
+      border-color: transparent;
+      background: linear-gradient(var(--card-bg), var(--card-bg)) padding-box, var(--gradient-primary) border-box;
+      transform: translateY(-3px);
+      box-shadow: var(--glow);
     }
 
     .dossier-card-header {
@@ -808,21 +827,21 @@
       align-items: center;
       justify-content: space-between;
       border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      padding-bottom: 0.5rem;
+      padding-bottom: 0.45rem;
     }
 
     .dossier-card-header h4 {
       font-family: 'Fira Code', monospace;
-      font-size: 0.82rem;
+      font-size: 0.85rem;
       color: var(--accent);
       font-weight: 700;
-      letter-spacing: 0.03em;
+      letter-spacing: 0.04em;
     }
 
     .info-table {
       display: flex;
       flex-direction: column;
-      gap: 0.45rem;
+      gap: 0.4rem;
       font-size: 0.82rem;
     }
 
@@ -830,24 +849,21 @@
       display: flex;
       justify-content: space-between;
       border-bottom: 1px dashed rgba(255, 255, 255, 0.05);
-      padding-bottom: 0.3rem;
-      gap: 0.6rem;
+      padding-bottom: 0.22rem;
     }
 
     .info-label {
       font-family: 'Fira Code', monospace;
       color: var(--muted);
-      font-size: 0.75rem;
+      font-size: 0.74rem;
       text-transform: uppercase;
-      letter-spacing: 0.03em;
-      flex-shrink: 0;
+      letter-spacing: 0.04em;
     }
 
     .info-value {
       color: var(--text);
       font-weight: 500;
       text-align: right;
-      word-break: break-word;
     }
 
     .info-value.solid-clean {
@@ -859,31 +875,47 @@
     .dossier-spec-list {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.4rem;
+      gap: 0.45rem;
       margin-top: 0.25rem;
     }
 
     .spec-item {
       font-family: 'Fira Code', monospace;
-      font-size: 0.7rem;
+      font-size: 0.72rem;
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid var(--border);
       color: var(--text);
-      padding: 4px 10px;
+      padding: 6px 12px;
       border-radius: 6px;
+      transition: all 0.2s ease;
+      display: block;
+      width: 100%;
+    }
+
+    .spec-item:hover {
+      border-color: transparent;
+      background: var(--gradient-primary);
+      color: #06090e;
+      font-weight: 700;
     }
 
     .academic-quote-box {
       background: #090e18;
       border: 1px dashed rgba(56, 189, 248, 0.4);
-      border-radius: 10px;
-      padding: 0.8rem 1.2rem;
+      border-radius: 8px;
+      padding: 0.55rem 1rem;
       display: flex;
       align-items: center;
       gap: 0.6rem;
       font-family: 'Fira Code', monospace;
-      font-size: 0.74rem;
+      font-size: 0.72rem;
       color: var(--muted);
+      transition: border-color 0.2s ease;
+      line-height: 1.4;
+    }
+
+    .academic-quote-box:hover {
+      border-color: var(--accent);
     }
 
     .academic-quote-box span {
@@ -891,34 +923,42 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       font-weight: 700;
+      white-space: nowrap;
     }
 
-    /* Standard Cards */
     .grid-cards {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.2rem;
     }
 
     .card {
       background: var(--card-bg);
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.2rem;
+      border-radius: 14px;
+      padding: 1.4rem;
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
+      gap: 0.6rem;
+      transition: all 0.25s ease;
+    }
+
+    .card:hover {
+      border-color: transparent;
+      background: linear-gradient(var(--card-bg), var(--card-bg)) padding-box, var(--gradient-primary) border-box;
+      transform: translateY(-3px);
+      box-shadow: var(--glow);
     }
 
     .card h3 {
-      font-size: 1rem;
+      font-size: 1.05rem;
       font-weight: 700;
       color: var(--text);
     }
 
     .card .meta {
       font-family: 'Fira Code', monospace;
-      font-size: 0.72rem;
+      font-size: 0.75rem;
       background: var(--gradient-primary);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -926,35 +966,41 @@
     }
 
     .card p {
-      font-size: 0.82rem;
+      font-size: 0.88rem;
       color: var(--muted);
-      line-height: 1.45;
+      line-height: 1.5;
     }
 
-    /* ACHIEVEMENTS GRID & CARDS */
     .achievements-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 0.9rem;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1rem;
       width: 100%;
-      margin-top: 0.3rem;
-      padding-bottom: 0.8rem;
+      margin-top: 0.5rem;
+      padding-bottom: 0.5rem;
     }
 
     .achievement-card {
       background: var(--card-bg);
       border: 1px solid var(--border);
-      border-radius: 12px;
+      border-radius: 14px;
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      transition: all 0.2s ease;
+      transition: all 0.25s ease;
       position: relative;
+    }
+
+    .achievement-card:hover {
+      border-color: transparent;
+      background: linear-gradient(var(--card-bg), var(--card-bg)) padding-box, var(--gradient-primary) border-box;
+      transform: translateY(-4px);
+      box-shadow: var(--glow);
     }
 
     .achievement-thumb-box {
       width: 100%;
-      height: 135px;
+      height: 120px;
       background: #090e18;
       position: relative;
       overflow: hidden;
@@ -969,11 +1015,11 @@
       height: 100%;
       object-fit: cover;
       display: block;
-      transition: transform 0.3s ease;
+      transition: transform 0.4s ease;
     }
 
     .achievement-card:hover .achievement-thumb-box img {
-      transform: scale(1.05);
+      transform: scale(1.08);
     }
 
     .achievement-overlay-hint {
@@ -983,15 +1029,15 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 5px;
+      gap: 6px;
       opacity: 0;
       transition: opacity 0.2s ease;
       font-family: 'Fira Code', monospace;
-      font-size: 0.68rem;
+      font-size: 0.7rem;
       color: var(--cyan);
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.05em;
     }
 
     .achievement-card:hover .achievement-overlay-hint {
@@ -999,7 +1045,7 @@
     }
 
     .achievement-body {
-      padding: 0.8rem 0.9rem;
+      padding: 0.75rem 0.85rem;
       display: flex;
       flex-direction: column;
       gap: 0.3rem;
@@ -1016,7 +1062,7 @@
     }
 
     .achievement-body h4 {
-      font-size: 0.88rem;
+      font-size: 0.86rem;
       font-weight: 700;
       color: var(--text);
       line-height: 1.25;
@@ -1028,18 +1074,16 @@
       line-height: 1.35;
     }
 
-    /* LIGHTBOX MODAL */
     .lightbox-modal {
       position: fixed;
       inset: 0;
       background: rgba(6, 9, 14, 0.88);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(14px);
       z-index: 10000;
       display: none;
       align-items: center;
       justify-content: center;
-      padding: 1rem;
+      padding: 2rem;
       opacity: 0;
       transition: opacity 0.25s ease;
     }
@@ -1053,40 +1097,52 @@
       background: var(--detail-bg);
       border: 1px solid transparent;
       background: linear-gradient(var(--detail-bg), var(--detail-bg)) padding-box, var(--gradient-primary) border-box;
-      border-radius: 18px;
-      max-width: 820px;
+      border-radius: 20px;
+      max-width: 900px;
       width: 100%;
       max-height: 90vh;
-      max-height: 90dvh;
       display: flex;
       flex-direction: column;
       overflow: hidden;
-      box-shadow: 0 0 40px rgba(56, 189, 248, 0.35);
+      box-shadow: 0 0 50px rgba(56, 189, 248, 0.35);
       position: relative;
+      animation: modalZoom 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes modalZoom {
+      from { transform: scale(0.92); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
     }
 
     .lightbox-close-btn {
       position: absolute;
-      top: 12px;
-      right: 12px;
+      top: 14px;
+      right: 16px;
       background: rgba(15, 23, 42, 0.85);
       border: 1px solid var(--border);
       color: var(--text);
-      width: 32px;
-      height: 32px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1rem;
+      font-size: 1.1rem;
       cursor: pointer;
       z-index: 10;
+      transition: all 0.2s ease;
+    }
+
+    .lightbox-close-btn:hover {
+      background: var(--accent);
+      color: #06090e;
+      border-color: transparent;
+      transform: rotate(90deg);
     }
 
     .lightbox-image-stage {
       width: 100%;
-      max-height: 58vh;
-      max-height: 58dvh;
+      max-height: 62vh;
       background: #04060a;
       display: flex;
       align-items: center;
@@ -1096,74 +1152,72 @@
 
     .lightbox-image-stage img {
       max-width: 100%;
-      max-height: 58vh;
-      max-height: 58dvh;
+      max-height: 62vh;
       object-fit: contain;
       display: block;
     }
 
     .lightbox-caption-box {
-      padding: 1rem 1.4rem;
+      padding: 1.2rem 1.6rem;
       display: flex;
       flex-direction: column;
-      gap: 0.25rem;
+      gap: 0.3rem;
       border-top: 1px solid var(--border);
       background: var(--detail-bg);
     }
 
     .lightbox-caption-tag {
       font-family: 'Fira Code', monospace;
-      font-size: 0.68rem;
+      font-size: 0.72rem;
       color: var(--accent);
-      letter-spacing: 0.05em;
+      letter-spacing: 0.06em;
       font-weight: 700;
       text-transform: uppercase;
     }
 
     .lightbox-caption-title {
-      font-size: 1.05rem;
+      font-size: 1.15rem;
       font-weight: 800;
       color: var(--text);
     }
 
     .lightbox-caption-desc {
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       color: var(--muted);
-      line-height: 1.4;
+      line-height: 1.45;
     }
 
-    /* Contact Form */
     .contact-container {
       display: grid;
       grid-template-columns: 1fr 1.2fr;
-      gap: 1.3rem;
+      gap: 1.5rem;
       background: var(--card-bg);
       border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 1.4rem;
+      border-radius: 16px;
+      padding: 1.8rem;
     }
 
     .contact-info {
       display: flex;
       flex-direction: column;
-      gap: 0.8rem;
+      gap: 1rem;
     }
 
     .contact-form {
       display: flex;
       flex-direction: column;
-      gap: 0.7rem;
+      gap: 0.8rem;
     }
 
     .form-group {
       display: flex;
       flex-direction: column;
-      gap: 0.25rem;
+      gap: 0.3rem;
     }
 
     .form-group label {
       font-family: 'Fira Code', monospace;
-      font-size: 0.7rem;
+      font-size: 0.72rem;
       text-transform: uppercase;
       letter-spacing: 0.05em;
       color: var(--muted);
@@ -1172,19 +1226,25 @@
     .form-group input,
     .form-group textarea {
       width: 100%;
-      padding: 8px 11px;
+      padding: 8px 12px;
       background: var(--input-bg);
       border: 1px solid var(--border);
       border-radius: 6px;
       color: var(--text);
       font-family: inherit;
-      font-size: 0.82rem;
+      font-size: 0.85rem;
       outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--accent);
     }
 
     .form-group textarea {
       resize: none;
-      height: 70px;
+      height: 75px;
     }
 
     .btn-solid {
@@ -1193,33 +1253,35 @@
       border: none;
       border-radius: 6px;
       font-family: 'Fira Code', monospace;
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       font-weight: 700;
-      padding: 9px;
+      transition: all 0.25s ease;
     }
 
-    /* Pinned Fixed-Position Bottom Navigation Bar */
+    .btn-solid:hover {
+      box-shadow: 0 0 18px var(--accent-glow);
+      transform: translateY(-2px);
+    }
+
     .page-bottom-nav {
       display: grid;
-      grid-template-columns: 1fr auto 1fr;
+      grid-template-columns: 200px 1fr 200px;
       align-items: center;
       width: 100%;
       max-width: 1180px;
-      height: 44px;
-      margin-top: 0.3rem;
-      padding-top: 0.3rem;
+      height: 48px;
+      margin-top: 0.5rem;
+      padding-top: 0.5rem;
       border-top: 1px solid var(--border);
       flex-shrink: 0;
-      gap: 0.5rem;
     }
 
     .nav-slot-left { justify-self: start; }
     .nav-slot-center {
       justify-self: center;
       font-family: 'Fira Code', monospace;
-      font-size: 0.72rem;
-      letter-spacing: 0.06em;
-      white-space: nowrap;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
     }
     .nav-slot-right { justify-self: end; }
 
@@ -1228,15 +1290,15 @@
       border: 1px solid var(--border);
       color: var(--text);
       font-family: 'Fira Code', monospace;
-      font-size: 0.74rem;
+      font-size: 0.78rem;
       font-weight: 600;
-      padding: 6px 14px;
+      padding: 7px 18px;
       border-radius: 9999px;
       display: inline-flex;
       align-items: center;
-      gap: 0.35rem;
+      gap: 0.45rem;
       transition: all 0.2s ease;
-      max-width: 160px;
+      width: 180px;
       justify-content: center;
       white-space: nowrap;
     }
@@ -1247,211 +1309,39 @@
       font-weight: 700;
       border-color: transparent;
       box-shadow: 0 0 16px var(--accent-glow);
+      transform: translateY(-1px);
     }
 
     .page-nav-btn:disabled {
-      opacity: 0.2;
+      opacity: 0.18;
       pointer-events: none;
       border-color: var(--border);
     }
 
     footer {
-      height: 36px;
+      height: 40px;
       border-top: 1px solid var(--border);
       background: var(--header-bg);
       backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      padding: 0 1.2rem;
+      padding: 0 2.5rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
       font-family: 'Fira Code', monospace;
-      font-size: 0.7rem;
+      font-size: 0.75rem;
       color: var(--muted);
       width: 100%;
       flex-shrink: 0;
       z-index: 100;
     }
-
-    /* =========================================================
-       CELLPHONE / MOBILE RESPONSIVE ADAPTATIONS (<= 768px)
-       Locks screen completely, avoids horizontal sprawl or zoom
-       ========================================================= */
-    @media (max-width: 768px) {
-      header {
-        padding: 0 0.8rem;
-        height: 52px;
-        grid-template-columns: auto 1fr auto;
-      }
-
-      nav {
-        justify-content: flex-start;
-        padding-left: 4px;
-        padding-right: 4px;
-      }
-
-      nav button {
-        font-size: 0.68rem;
-        padding: 4px 9px;
-      }
-
-      .header-right span {
-        display: none;
-      }
-
-      main {
-        padding: 0.4rem 0.8rem 0.3rem;
-      }
-
-      .hero-layout {
-        grid-template-columns: 1fr;
-        gap: 1.2rem;
-        text-align: center;
-      }
-
-      .photo-column {
-        max-width: 200px;
-        margin: 0 auto;
-      }
-
-      .photo-outer-border {
-        padding: 6px;
-        border-radius: 12px;
-      }
-
-      .hero-content {
-        align-items: center;
-        gap: 0.6rem;
-      }
-
-      .social-row {
-        justify-content: center;
-      }
-
-      .home-timeline-row {
-        grid-template-columns: 1fr;
-        gap: 0.6rem;
-      }
-
-      .home-timeline-card {
-        padding: 0.75rem 0.95rem;
-      }
-
-      /* Stage view on mobile */
-      .stage-fullscreen-screen {
-        padding: 1.4rem 1.1rem;
-        min-height: auto;
-      }
-
-      .stage-grid-layout {
-        grid-template-columns: 1fr;
-        gap: 1.2rem;
-        margin-top: 1.8rem;
-      }
-
-      .stage-rounded-box {
-        height: 220px;
-        max-width: 260px;
-        margin: 0 auto;
-      }
-
-      .stage-cards-triad {
-        grid-template-columns: 1fr;
-        gap: 0.5rem;
-      }
-
-      /* Personal info on mobile */
-      .dossier-banner {
-        grid-template-columns: 1fr;
-        text-align: center;
-        gap: 0.8rem;
-        padding: 1rem;
-      }
-
-      .dossier-avatar-wrapper {
-        margin: 0 auto;
-        width: 90px;
-        height: 90px;
-      }
-
-      .dossier-tags {
-        align-items: center;
-        flex-direction: row;
-        justify-content: center;
-      }
-
-      .dossier-grid {
-        grid-template-columns: 1fr;
-        gap: 0.8rem;
-      }
-
-      /* Achievements mobile 2-column compact grid */
-      .achievements-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 0.6rem;
-      }
-
-      .achievement-thumb-box {
-        height: 110px;
-      }
-
-      .achievement-body {
-        padding: 0.65rem 0.75rem;
-      }
-
-      .contact-container {
-        grid-template-columns: 1fr;
-        padding: 1.1rem;
-        gap: 1rem;
-      }
-
-      /* Bottom nav buttons on mobile */
-      .page-bottom-nav {
-        grid-template-columns: 1fr auto 1fr;
-        height: 42px;
-      }
-
-      .page-nav-btn {
-        padding: 5px 10px;
-        font-size: 0.68rem;
-        max-width: 120px;
-      }
-
-      .nav-slot-center {
-        font-size: 0.68rem;
-      }
-
-      footer {
-        height: 32px;
-        font-size: 0.65rem;
-        padding: 0 0.8rem;
-      }
-    }
-
-    @media (max-width: 420px) {
-      .achievements-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .page-nav-btn {
-        max-width: 105px;
-        font-size: 0.65rem;
-      }
-
-      .nav-slot-center {
-        font-size: 0.62rem;
-      }
-    }
   </style>
 </head>
 <body>
 
-  <!-- 3D Perspective Grid Background -->
   <div class="bg-3d-scene">
     <div class="bg-3d-plane" id="bg3dPlane"></div>
   </div>
 
-  <!-- Fullscreen Loading Intro Screen -->
   <div id="loader-screen">
     <div class="loader-content">
       <div class="loader-tag">// THIS IS ME</div>
@@ -1465,7 +1355,6 @@
     </div>
   </div>
 
-  <!-- Header -->
   <header>
     <div class="brand">
       <svg class="brand-icon" viewBox="0 0 24 24">
@@ -1474,7 +1363,7 @@
       <span>SGL</span>
     </div>
 
-    <nav id="topNav">
+    <nav>
       <button class="active" onclick="switchView('home', this)">HOME</button>
       <button onclick="switchView('personal-info', this)">PERSONAL INFO</button>
       <button onclick="switchView('achievements', this)">ACHIEVEMENTS</button>
@@ -1491,11 +1380,9 @@
     </div>
   </header>
 
-  <!-- Main Viewport -->
   <main>
     <div class="views-wrapper">
 
-      <!-- 0. HOME VIEW -->
       <div id="view-home" class="view-panel active-panel">
         <div class="home-wrapper">
           <div class="hero-layout">
@@ -1517,19 +1404,19 @@
 
               <div class="social-row">
                 <a href="https://github.com/stevengennesielana-svg" target="_blank" class="social-badge">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
                   </svg>
                   GitHub
                 </a>
                 <a href="https://facebook.com/stevengennesielana" target="_blank" class="social-badge">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
                   </svg>
                   Facebook
                 </a>
                 <button class="social-badge" onclick="switchView('contact')">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                     <polyline points="22,6 12,13 2,6"></polyline>
                   </svg>
@@ -1559,10 +1446,9 @@
         </div>
       </div>
 
-      <!-- DEDICATED STAGE VIEW -->
       <div id="view-stage-detail" class="view-panel">
         <div class="stage-fullscreen-screen">
-          <button class="back-btn" onclick="switchView('home')">&larr; Home</button>
+          <button class="back-btn" onclick="switchView('home')">&larr; Return to Home</button>
           <div class="stage-grid-layout">
             <div class="stage-left-box">
               <div class="stage-rounded-box">
@@ -1669,6 +1555,7 @@
               </div>
             </div>
 
+            <!-- TECHNICAL SKILLS & DETAILS CARD (Tightly fills height and stacks 01, 02, 03) -->
             <div class="dossier-card">
               <div class="dossier-card-header">
                 <h4>TECHNICAL SKILLS &amp; DETAILS</h4>
@@ -1692,9 +1579,9 @@
                   <span class="info-value">Dancing, Playing instruments, Mobile games</span>
                 </div>
               </div>
-              <div style="margin-top: 0.3rem;">
-                <span class="info-label" style="display: block; margin-bottom: 0.3rem;">Core Skills:</span>
-                <div class="dossier-spec-list">
+              <div style="margin-top: 0.4rem; display: flex; flex-direction: column; gap: 0.4rem;">
+                <span class="info-label">Core Skills:</span>
+                <div class="dossier-spec-list" style="display: flex; flex-direction: column; gap: 0.45rem;">
                   <span class="spec-item">01. Network Packet &amp; Traffic Analysis</span>
                   <span class="spec-item">02. Defensive Security &amp; System Hardening</span>
                   <span class="spec-item">03. Python Automation Scripting</span>
@@ -1709,19 +1596,18 @@
         </div>
       </div>
 
-      <!-- 2. ACHIEVEMENTS VIEW (TOUCH RESPONSIVE 2-COLUMN GRID ON MOBILE) -->
+      <!-- 2. ACHIEVEMENTS VIEW -->
       <div id="view-achievements" class="view-panel">
         <div class="mono-tag">// 02. RECOGNITION &amp; CERTIFICATIONS</div>
         <h2 class="section-title"><span class="gradient-text">Achievements &amp; Badges</span></h2>
         
         <div class="achievements-grid">
-          <!-- Achievement 1 -->
-          <div class="achievement-card" onclick="expandImage('achievement1.jpg', 'Academic Excellence Award', 'Certificate of Honor', 'Recognized for consistent academic diligence and dedication in secondary coursework.')">
+          <div class="achievement-card" onclick="expandCard(this)">
             <div class="achievement-thumb-box">
-              <img src="achievement1.jpg" alt="Achievement 1" onerror="this.src='profile.jpg.jpg'" />
+              <img src="achievement1.jpg" alt="Achievement 1" />
               <div class="achievement-overlay-hint">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                Expand
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                Expand View
               </div>
             </div>
             <div class="achievement-body">
@@ -1731,13 +1617,12 @@
             </div>
           </div>
 
-          <!-- Achievement 2 -->
-          <div class="achievement-card" onclick="expandImage('achievement2.jpg', 'Networking Essentials', 'Cisco / Academy Badge', 'Completed introductory routing, switching, and IP packet transmission labs.')">
+          <div class="achievement-card" onclick="expandCard(this)">
             <div class="achievement-thumb-box">
-              <img src="achievement2.jpg" alt="Achievement 2" onerror="this.src='profile.jpg.jpg'" />
+              <img src="achievement2.jpg" alt="Achievement 2" />
               <div class="achievement-overlay-hint">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                Expand
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                Expand View
               </div>
             </div>
             <div class="achievement-body">
@@ -1747,13 +1632,12 @@
             </div>
           </div>
 
-          <!-- Achievement 3 -->
-          <div class="achievement-card" onclick="expandImage('achievement3.jpg', 'Cybersecurity Basics Certificate', 'Foundations Certificate', 'Gained practical insight into encryption, threats, firewalls, and defense architectures.')">
+          <div class="achievement-card" onclick="expandCard(this)">
             <div class="achievement-thumb-box">
-              <img src="achievement3.jpg" alt="Achievement 3" onerror="this.src='profile.jpg.jpg'" />
+              <img src="achievement3.jpg" alt="Achievement 3" />
               <div class="achievement-overlay-hint">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                Expand
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                Expand View
               </div>
             </div>
             <div class="achievement-body">
@@ -1763,13 +1647,12 @@
             </div>
           </div>
 
-          <!-- Achievement 4 -->
-          <div class="achievement-card" onclick="expandImage('achievement4.jpg', 'Python Scripting Milestone', 'Practical Code Badge', 'Built automation scripts for basic file parsers and traffic log monitors.')">
+          <div class="achievement-card" onclick="expandCard(this)">
             <div class="achievement-thumb-box">
-              <img src="achievement4.jpg" alt="Achievement 4" onerror="this.src='profile.jpg.jpg'" />
+              <img src="achievement4.jpg" alt="Achievement 4" />
               <div class="achievement-overlay-hint">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                Expand
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                Expand View
               </div>
             </div>
             <div class="achievement-body">
@@ -1779,13 +1662,12 @@
             </div>
           </div>
 
-          <!-- Achievement 5 -->
-          <div class="achievement-card" onclick="expandImage('achievement5.jpg', 'Digital Logic Design', 'Hardware & Logic Badge', 'Constructed binary circuits, truth table converters, and logic locks.')">
+          <div class="achievement-card" onclick="expandCard(this)">
             <div class="achievement-thumb-box">
-              <img src="achievement5.jpg" alt="Achievement 5" onerror="this.src='profile.jpg.jpg'" />
+              <img src="achievement5.jpg" alt="Achievement 5" />
               <div class="achievement-overlay-hint">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                Expand
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                Expand View
               </div>
             </div>
             <div class="achievement-body">
@@ -1795,13 +1677,12 @@
             </div>
           </div>
 
-          <!-- Achievement 6 -->
-          <div class="achievement-card" onclick="expandImage('achievement6.jpg', 'Leadership & Team Collaboration', 'Extracurricular Citation', 'Led collaborative student research presentations and technical peer group projects.')">
+          <div class="achievement-card" onclick="expandCard(this)">
             <div class="achievement-thumb-box">
-              <img src="achievement6.jpg" alt="Achievement 6" onerror="this.src='profile.jpg.jpg'" />
+              <img src="achievement6.jpg" alt="Achievement 6" />
               <div class="achievement-overlay-hint">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                Expand
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                Expand View
               </div>
             </div>
             <div class="achievement-body">
@@ -1811,13 +1692,12 @@
             </div>
           </div>
 
-          <!-- Achievement 7 -->
-          <div class="achievement-card" onclick="expandImage('achievement7.jpg', 'Math & Analysis Honors', 'STEM Competition', 'Demonstrated fast problem-solving across applied mathematical reasoning.')">
+          <div class="achievement-card" onclick="expandCard(this)">
             <div class="achievement-thumb-box">
-              <img src="achievement7.jpg" alt="Achievement 7" onerror="this.src='profile.jpg.jpg'" />
+              <img src="achievement7.jpg" alt="Achievement 7" />
               <div class="achievement-overlay-hint">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                Expand
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                Expand View
               </div>
             </div>
             <div class="achievement-body">
@@ -1827,13 +1707,12 @@
             </div>
           </div>
 
-          <!-- Achievement 8 -->
-          <div class="achievement-card" onclick="expandImage('achievement8.jpg', 'Web Development Showcase', 'Frontend Certification', 'Designed responsive cybersecurity-styled landing interfaces and portfolios.')">
+          <div class="achievement-card" onclick="expandCard(this)">
             <div class="achievement-thumb-box">
-              <img src="achievement8.jpg" alt="Achievement 8" onerror="this.src='profile.jpg.jpg'" />
+              <img src="achievement8.jpg" alt="Achievement 8" />
               <div class="achievement-overlay-hint">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                Expand
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                Expand View
               </div>
             </div>
             <div class="achievement-body">
@@ -1843,13 +1722,12 @@
             </div>
           </div>
 
-          <!-- Achievement 9 -->
-          <div class="achievement-card" onclick="expandImage('achievement9.jpg', 'Musical Performance Recognition', 'Cultural Achievement', 'Active involvement in instrumental music and ensemble performances.')">
+          <div class="achievement-card" onclick="expandCard(this)">
             <div class="achievement-thumb-box">
-              <img src="achievement9.jpg" alt="Achievement 9" onerror="this.src='profile.jpg.jpg'" />
+              <img src="achievement9.jpg" alt="Achievement 9" />
               <div class="achievement-overlay-hint">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                Expand
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                Expand View
               </div>
             </div>
             <div class="achievement-body">
@@ -1859,13 +1737,12 @@
             </div>
           </div>
 
-          <!-- Achievement 10 -->
-          <div class="achievement-card" onclick="expandImage('achievement10.jpg', 'Dance & Choreography Award', 'Creative Arts Award', 'Excellence in disciplined stage performance and team choreography competitions.')">
+          <div class="achievement-card" onclick="expandCard(this)">
             <div class="achievement-thumb-box">
-              <img src="achievement10.jpg" alt="Achievement 10" onerror="this.src='profile.jpg.jpg'" />
+              <img src="achievement10.jpg" alt="Achievement 10" />
               <div class="achievement-overlay-hint">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                Expand
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                Expand View
               </div>
             </div>
             <div class="achievement-body">
@@ -1986,7 +1863,7 @@
             <p>
               Have an opportunity, project, or want to discuss security? Drop a direct message below.
             </p>
-            <div style="font-family: 'Fira Code', monospace; font-size: 0.78rem; color: var(--text);">
+            <div style="font-family: 'Fira Code', monospace; font-size: 0.8rem; color: var(--text);">
               <strong class="gradient-text">Email:</strong><br>
               stevengennesielana@gmail.com
             </div>
@@ -2009,7 +1886,7 @@
               <label for="message">Message</label>
               <textarea id="message" name="message" placeholder="Type your message here..." required></textarea>
             </div>
-            <button type="submit" class="btn-solid" style="justify-content: center; padding: 9px;">
+            <button type="submit" class="btn-solid" style="justify-content: center; padding: 10px;">
               Send Message &rarr;
             </button>
           </form>
@@ -2018,7 +1895,6 @@
 
     </div>
 
-    <!-- Pinned Fixed-Position Bottom Navigation Bar -->
     <div class="page-bottom-nav" id="pageBottomNav">
       <div class="nav-slot-left">
         <button class="page-nav-btn" id="prevPageBtn" onclick="navigatePages(-1)">
@@ -2038,7 +1914,6 @@
     </div>
   </main>
 
-  <!-- LIGHTBOX EXPAND MODAL -->
   <div id="imageLightboxModal" class="lightbox-modal" onclick="closeLightboxOnBackdrop(event)">
     <div class="lightbox-container" onclick="event.stopPropagation()">
       <button class="lightbox-close-btn" onclick="closeImageModal()" title="Close">&times;</button>
@@ -2053,14 +1928,12 @@
     </div>
   </div>
 
-  <!-- Footer -->
   <footer>
     <div>&copy; Steven Gennesie B. Laña</div>
     <div>Learning today, securing tomorrow.</div>
   </footer>
 
   <script>
-    // Intro Loader Handling
     window.addEventListener('load', () => {
       const loader = document.getElementById('loader-screen');
       setTimeout(() => {
@@ -2068,10 +1941,9 @@
           loader.classList.add('fade-out');
           setTimeout(() => { loader.style.display = 'none'; }, 600);
         }
-      }, 1400);
+      }, 1600);
     });
 
-    // 3D Perspective Plane Movement
     const plane = document.getElementById('bg3dPlane');
     window.addEventListener('mousemove', (e) => {
       if (!plane) return;
@@ -2080,7 +1952,6 @@
       plane.style.transform = `rotateX(${16 + yRatio * 10}deg) rotateY(${xRatio * 10}deg) translateZ(0)`;
     });
 
-    // Page Navigation State
     const pages = ['home', 'personal-info', 'achievements', 'family', 'education', 'skills', 'projects', 'contact'];
     let currentPageIndex = 0;
 
@@ -2163,8 +2034,6 @@
         const btnText = btn.innerText.toLowerCase().replace(/\s+/g, '-');
         if (btnText === viewName.toLowerCase()) {
           btn.classList.add('active');
-          // Auto scroll tab into view on mobile
-          btn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
         }
       });
 
@@ -2210,14 +2079,20 @@
       document.getElementById('card3Desc').innerText = data.c3D;
     }
 
-    // Lightbox Expander
+    function expandCard(cardElement) {
+      const img = cardElement.querySelector('img');
+      const title = cardElement.querySelector('h4') ? cardElement.querySelector('h4').innerText : 'Achievement Preview';
+      const tag = cardElement.querySelector('.achievement-badge') ? cardElement.querySelector('.achievement-badge').innerText : 'CERTIFICATE // HONORS';
+      const desc = cardElement.querySelector('.achievement-body p') ? cardElement.querySelector('.achievement-body p').innerText : '';
+      
+      const src = img ? (img.getAttribute('src') || img.src) : '';
+      expandImage(src, title, tag, desc);
+    }
+
     function expandImage(src, title, tag, desc) {
       const modal = document.getElementById('imageLightboxModal');
       const targetImg = document.getElementById('lightboxTargetImg');
       
-      targetImg.onerror = function() {
-        this.src = 'profile.jpg.jpg';
-      };
       targetImg.src = src;
       document.getElementById('lightboxTitle').innerText = title || 'Achievement Preview';
       document.getElementById('lightboxTag').innerText = tag || 'CERTIFICATE // HONORS';
