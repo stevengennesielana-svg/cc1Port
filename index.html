@@ -2,7 +2,7 @@
 <html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=1400, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Steven Gennesie B. Laña - Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -37,10 +37,10 @@
       padding: 0;
     }
 
+    /* Desktop: Fixed non-expanding viewport */
     html, body {
       height: 100vh;
       width: 100vw;
-      min-width: 1400px;
       overflow: hidden;
       position: fixed;
       inset: 0;
@@ -83,7 +83,7 @@
       will-change: transform;
     }
 
-    button, a, .home-timeline-card, .dossier-card, .spec-item, input, textarea, .achievement-card {
+    button, a, .home-timeline-card, .dossier-card, .spec-item, input, textarea, .achievement-card, .ach-thumb-slot, .achievement-thumb-box, .lightbox-nav-btn {
       cursor: url("data:image/svg+xml,%3Csvg width='28' height='28' viewBox='0 0 28 28' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='14' cy='14' r='10' stroke='%23f59e0b' stroke-width='2'/%3E%3Ccircle cx='14' cy='14' r='3.5' fill='%23ffffff'/%3E%3Cpath d='M14 0v6M14 22v6M0 14h6M22 14h6' stroke='%23f59e0b' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") 14 14, pointer !important;
     }
 
@@ -142,7 +142,7 @@
 
     .loader-name {
       font-family: 'Inter', sans-serif;
-      font-size: clamp(3rem, 6.5vw, 5.2rem);
+      font-size: clamp(2.6rem, 6.5vw, 5.2rem);
       font-weight: 900;
       line-height: 1.05;
       letter-spacing: -0.04em;
@@ -267,8 +267,8 @@
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
-      padding: 0.8rem 3rem 0.6rem;
-      max-width: 1450px;
+      padding: 0.8rem 2.5rem 0.6rem;
+      max-width: 1480px;
       width: 100%;
       margin: 0 auto;
       position: relative;
@@ -279,7 +279,7 @@
     .views-wrapper {
       flex: 1;
       width: 100%;
-      max-width: 1220px;
+      max-width: 1360px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -317,6 +317,7 @@
       justify-content: center;
       gap: 1.5rem;
       width: 100%;
+      max-width: 1220px;
       margin: 0 auto;
     }
 
@@ -412,7 +413,7 @@
     }
 
     h1.hero-title {
-      font-size: clamp(2.8rem, 4.8vw, 4.2rem);
+      font-size: clamp(2.6rem, 4.8vw, 4.2rem);
       font-weight: 900;
       line-height: 1.04;
       letter-spacing: -0.03em;
@@ -668,9 +669,9 @@
     }
 
     .section-title {
-      font-size: 1.8rem;
+      font-size: 1.75rem;
       font-weight: 800;
-      margin-bottom: 0.9rem;
+      margin-bottom: 0.75rem;
       letter-spacing: -0.02em;
       color: var(--text);
     }
@@ -680,6 +681,8 @@
       flex-direction: column;
       gap: 0.85rem;
       width: 100%;
+      max-width: 1220px;
+      margin: 0 auto;
     }
 
     .dossier-banner {
@@ -850,6 +853,7 @@
       justify-content: space-between;
       border-bottom: 1px dashed rgba(255, 255, 255, 0.05);
       padding-bottom: 0.22rem;
+      gap: 0.8rem;
     }
 
     .info-label {
@@ -858,6 +862,7 @@
       font-size: 0.74rem;
       text-transform: uppercase;
       letter-spacing: 0.04em;
+      flex-shrink: 0;
     }
 
     .info-value {
@@ -971,37 +976,81 @@
       line-height: 1.5;
     }
 
+    /* ============================================================
+       MAXIMIZED 3-BOX ACHIEVEMENTS SHOWCASE (NO OVERLAP, NON-SCROLLABLE)
+       ============================================================ */
+    #view-achievements.active-panel {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      justify-content: center;
+      padding: 0.2rem 0;
+    }
+
     .achievements-grid {
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 1rem;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
       width: 100%;
-      margin-top: 0.5rem;
-      padding-bottom: 0.5rem;
+      flex: 1;
+      max-height: calc(100vh - 245px);
+      min-height: 440px;
     }
 
     .achievement-card {
       background: var(--card-bg);
       border: 1px solid var(--border);
-      border-radius: 14px;
+      border-radius: 18px;
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      transition: all 0.25s ease;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
       position: relative;
+      height: 100%;
     }
 
     .achievement-card:hover {
       border-color: transparent;
       background: linear-gradient(var(--card-bg), var(--card-bg)) padding-box, var(--gradient-primary) border-box;
-      transform: translateY(-4px);
+      transform: translateY(-3px);
       box-shadow: var(--glow);
+    }
+
+    .ach-card-top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.7rem 1.1rem;
+      background: rgba(6, 9, 14, 0.7);
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    .ach-cat-title {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--cyan);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .ach-counter-pill {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.7rem;
+      background: var(--gradient-subtle);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      color: var(--accent);
+      padding: 2px 10px;
+      border-radius: 9999px;
+      font-weight: 700;
     }
 
     .achievement-thumb-box {
       width: 100%;
-      height: 120px;
-      background: #090e18;
+      flex: 1;
+      min-height: 225px;
+      background: #04060a;
       position: relative;
       overflow: hidden;
       border-bottom: 1px solid var(--border);
@@ -1015,17 +1064,17 @@
       height: 100%;
       object-fit: cover;
       display: block;
-      transition: transform 0.4s ease;
+      transition: transform 0.4s ease, opacity 0.2s ease;
     }
 
-    .achievement-card:hover .achievement-thumb-box img {
-      transform: scale(1.08);
+    .achievement-thumb-box:hover img {
+      transform: scale(1.04);
     }
 
     .achievement-overlay-hint {
       position: absolute;
       inset: 0;
-      background: rgba(6, 9, 14, 0.65);
+      background: rgba(6, 9, 14, 0.6);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1033,47 +1082,108 @@
       opacity: 0;
       transition: opacity 0.2s ease;
       font-family: 'Fira Code', monospace;
-      font-size: 0.7rem;
+      font-size: 0.78rem;
       color: var(--cyan);
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.05em;
     }
 
-    .achievement-card:hover .achievement-overlay-hint {
+    .achievement-thumb-box:hover .achievement-overlay-hint {
       opacity: 1;
     }
 
     .achievement-body {
-      padding: 0.75rem 0.85rem;
+      padding: 0.85rem 1.1rem 0.95rem;
       display: flex;
       flex-direction: column;
-      gap: 0.3rem;
-      flex: 1;
+      justify-content: space-between;
+      gap: 0.55rem;
+      flex-shrink: 0;
     }
 
-    .achievement-badge {
-      font-family: 'Fira Code', monospace;
-      font-size: 0.65rem;
-      color: var(--accent);
-      letter-spacing: 0.05em;
-      font-weight: 700;
-      text-transform: uppercase;
-    }
-
-    .achievement-body h4 {
-      font-size: 0.86rem;
-      font-weight: 700;
+    .ach-info-group h4 {
+      font-size: 1.02rem;
+      font-weight: 800;
       color: var(--text);
       line-height: 1.25;
+      margin-bottom: 0.2rem;
     }
 
-    .achievement-body p {
-      font-size: 0.72rem;
+    .ach-info-group p {
+      font-size: 0.8rem;
       color: var(--muted);
-      line-height: 1.35;
+      line-height: 1.38;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
 
+    /* Interactive Mini Thumbnail Strip inside each big box */
+    .ach-thumbs-strip {
+      display: grid;
+      gap: 6px;
+      width: 100%;
+      padding-top: 0.45rem;
+      border-top: 1px dashed rgba(255, 255, 255, 0.08);
+    }
+
+    .ach-thumbs-strip.cols-1 {
+      grid-template-columns: repeat(1, 64px);
+    }
+
+    .ach-thumbs-strip.cols-6 {
+      grid-template-columns: repeat(6, 1fr);
+    }
+
+    .ach-thumbs-strip.cols-5 {
+      grid-template-columns: repeat(5, 1fr);
+    }
+
+    .ach-thumb-slot {
+      height: 40px;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1.5px solid var(--border);
+      background: #06090e;
+      position: relative;
+      transition: all 0.2s ease;
+      opacity: 0.65;
+    }
+
+    .ach-thumb-slot img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .ach-thumb-slot:hover {
+      opacity: 1;
+      border-color: var(--cyan);
+      transform: translateY(-1px);
+    }
+
+    .ach-thumb-slot.active-slot {
+      opacity: 1;
+      border-color: var(--accent);
+      box-shadow: 0 0 10px var(--accent-glow);
+    }
+
+    .ach-slot-num {
+      position: absolute;
+      bottom: 1px;
+      right: 3px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.56rem;
+      font-weight: 700;
+      color: #ffffff;
+      text-shadow: 0 1px 3px #000000;
+      pointer-events: none;
+    }
+
+    /* Lightbox Modal with Prev/Next Gallery Controls */
     .lightbox-modal {
       position: fixed;
       inset: 0;
@@ -1142,28 +1252,76 @@
 
     .lightbox-image-stage {
       width: 100%;
+      height: 60vh;
       max-height: 62vh;
       background: #04060a;
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
+      position: relative;
+      user-select: none;
     }
 
     .lightbox-image-stage img {
       max-width: 100%;
-      max-height: 62vh;
+      max-height: 100%;
       object-fit: contain;
       display: block;
     }
 
+    /* Lightbox Prev / Next Navigation Buttons */
+    .lightbox-nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid var(--border);
+      color: var(--text);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Fira Code', monospace;
+      font-size: 1.35rem;
+      font-weight: 700;
+      z-index: 10;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+    }
+
+    .lightbox-nav-btn:hover {
+      background: var(--gradient-primary);
+      color: #06090e;
+      border-color: transparent;
+      box-shadow: 0 0 18px var(--accent-glow);
+      transform: translateY(-50%) scale(1.08);
+    }
+
+    .lightbox-prev {
+      left: 16px;
+    }
+
+    .lightbox-next {
+      right: 16px;
+    }
+
     .lightbox-caption-box {
-      padding: 1.2rem 1.6rem;
+      padding: 1.15rem 1.6rem;
       display: flex;
       flex-direction: column;
       gap: 0.3rem;
       border-top: 1px solid var(--border);
       background: var(--detail-bg);
+    }
+
+    .lightbox-caption-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
     }
 
     .lightbox-caption-tag {
@@ -1173,6 +1331,17 @@
       letter-spacing: 0.06em;
       font-weight: 700;
       text-transform: uppercase;
+    }
+
+    .lightbox-caption-counter {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.72rem;
+      color: var(--cyan);
+      font-weight: 700;
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.28);
+      padding: 2px 10px;
+      border-radius: 9999px;
     }
 
     .lightbox-caption-title {
@@ -1334,6 +1503,180 @@
       flex-shrink: 0;
       z-index: 100;
     }
+
+    /* ============================================================
+       MOBILE ("CP") SCROLLABLE & RESPONSIVE OVERRIDES
+       ============================================================ */
+    @media (max-width: 960px) {
+      html, body {
+        position: static;
+        height: auto;
+        min-height: 100vh;
+        width: 100%;
+        min-width: 0;
+        overflow-x: hidden;
+        overflow-y: auto;
+      }
+
+      header {
+        height: auto;
+        padding: 0.85rem 1rem;
+        grid-template-columns: 1fr auto;
+        gap: 0.75rem;
+        position: sticky;
+        top: 0;
+      }
+
+      .brand {
+        grid-column: 1;
+      }
+
+      .header-right {
+        grid-column: 2;
+      }
+
+      nav {
+        grid-column: 1 / -1;
+        grid-row: 2;
+        flex-wrap: wrap;
+        white-space: normal;
+        gap: 0.35rem;
+        justify-content: center;
+        padding-top: 0.35rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+      }
+
+      nav button {
+        font-size: 0.68rem;
+        padding: 5px 10px;
+      }
+
+      main {
+        padding: 1.2rem 1rem 1.5rem;
+        overflow: visible;
+        justify-content: flex-start;
+        gap: 1.5rem;
+      }
+
+      .views-wrapper {
+        overflow: visible;
+        align-items: flex-start;
+      }
+
+      #view-achievements.active-panel {
+        height: auto;
+        display: block;
+      }
+
+      .hero-layout {
+        grid-template-columns: 1fr;
+        gap: 1.6rem;
+        text-align: center;
+      }
+
+      .photo-outer-border {
+        max-width: 280px;
+        margin: 0 auto;
+      }
+
+      .hero-content {
+        align-items: center;
+      }
+
+      .social-row {
+        justify-content: center;
+      }
+
+      .home-timeline-row,
+      .stage-grid-layout,
+      .stage-cards-triad,
+      .dossier-grid,
+      .achievements-grid,
+      .contact-container {
+        grid-template-columns: 1fr;
+        max-height: none;
+        min-height: 0;
+      }
+
+      .achievement-card {
+        height: auto;
+      }
+
+      .achievement-thumb-box {
+        height: 220px;
+        flex: none;
+      }
+
+      .stage-fullscreen-screen {
+        padding: 3.4rem 1.2rem 1.5rem;
+        min-height: auto;
+      }
+
+      .stage-rounded-box {
+        height: 280px;
+      }
+
+      .dossier-banner {
+        grid-template-columns: 1fr;
+        text-align: center;
+        justify-items: center;
+      }
+
+      .dossier-tags {
+        align-items: center;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .academic-quote-box {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .academic-quote-box span {
+        white-space: normal;
+      }
+
+      .page-bottom-nav {
+        grid-template-columns: 1fr 1fr;
+        height: auto;
+        gap: 0.75rem;
+        padding-top: 1rem;
+      }
+
+      .nav-slot-center {
+        display: none;
+      }
+
+      .page-nav-btn {
+        width: 100%;
+        font-size: 0.72rem;
+        padding: 8px 12px;
+      }
+
+      footer {
+        height: auto;
+        padding: 0.9rem 1rem;
+        flex-direction: column;
+        gap: 0.35rem;
+        text-align: center;
+      }
+
+      .lightbox-modal {
+        padding: 1rem;
+      }
+
+      .lightbox-image-stage {
+        height: 48vh;
+      }
+
+      .lightbox-nav-btn {
+        width: 38px;
+        height: 38px;
+        font-size: 1.15rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1344,7 +1687,7 @@
 
   <div id="loader-screen">
     <div class="loader-content">
-      <div class="loader-tag">// THIS IS ME</div>
+      <div class="loader-tag">THIS IS ME</div>
       <h1 class="loader-name">
         <span class="gradient-text">Steven Gennesie</span><br>
         <span class="gradient-text">Laña</span><span class="dot">.</span>
@@ -1395,7 +1738,7 @@
             </div>
 
             <div class="hero-content">
-              <div class="mono-tag">// WELCOME TO MY PORTFOLIO</div>
+              <div class="mono-tag">WELCOME TO MY PORTFOLIO</div>
               <h1 class="hero-title">
                 <span class="gradient-text">Steven Gennesie</span><br>
                 <span class="gradient-text">B. Laña</span>
@@ -1482,7 +1825,7 @@
 
       <!-- 1. PERSONAL INFO VIEW -->
       <div id="view-personal-info" class="view-panel">
-        <div class="mono-tag">// MY PROFILE &amp; CREDENTIALS</div>
+        <div class="mono-tag">MY PROFILE &amp; CREDENTIALS</div>
         <h2 class="section-title"><span class="gradient-text">Personal Info</span></h2>
 
         <div class="about-dossier">
@@ -1530,7 +1873,7 @@
                 </div>
                 <div class="info-row">
                   <span class="info-label">Height</span>
-                  <span class="info-value solid-clean">5'7" / 170 cm</span>
+                  <span class="info-value solid-clean">5'4</span>
                 </div>
                 <div class="info-row">
                   <span class="info-label">Weight</span>
@@ -1555,7 +1898,6 @@
               </div>
             </div>
 
-            <!-- TECHNICAL SKILLS & DETAILS CARD (Tightly fills height and stacks 01, 02, 03) -->
             <div class="dossier-card">
               <div class="dossier-card-header">
                 <h4>TECHNICAL SKILLS &amp; DETAILS</h4>
@@ -1591,166 +1933,165 @@
           </div>
 
           <div class="academic-quote-box">
-            <span>TERMINAL // ACADEMIC STATEMENT:</span> "Information technology demands unbroken accuracy. I approach coursework and network defense with discipline, verifiable logic, and academic integrity."
+            <span>TERMINAL / ACADEMIC STATEMENT:</span> "Information technology demands unbroken accuracy. I approach coursework and network defense with discipline, verifiable logic, and academic integrity."
           </div>
         </div>
       </div>
 
       <!-- 2. ACHIEVEMENTS VIEW -->
       <div id="view-achievements" class="view-panel">
-        <div class="mono-tag">// 02. RECOGNITION &amp; CERTIFICATIONS</div>
-        <h2 class="section-title"><span class="gradient-text">Achievements &amp; Badges</span></h2>
-        
+        <div class="mono-tag">RECOGNITION &amp; MILESTONES</div>
+        <h2 class="section-title"><span class="gradient-text">Achievements</span></h2>
+
         <div class="achievements-grid">
-          <div class="achievement-card" onclick="expandCard(this)">
-            <div class="achievement-thumb-box">
-              <img src="achievement1.jpg" alt="Achievement 1" />
+          
+          <div class="achievement-card" id="ach-box-elem">
+            <div class="ach-card-top-bar">
+              <span class="ach-cat-title">Elementary</span>
+              <span class="ach-counter-pill" id="elem-counter">1 / 1</span>
+            </div>
+
+            <div class="achievement-thumb-box" onclick="expandShowcase('ach-box-elem')">
+              <img id="elem-main-img" src="elem.jpg" alt="Elementary Achievement" />
               <div class="achievement-overlay-hint">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-                Expand View
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                Click to Expand
               </div>
             </div>
+
             <div class="achievement-body">
-              <span class="achievement-badge">Honor Award</span>
-              <h4>Academic Excellence</h4>
-              <p>Recognized for outstanding discipline and top performance.</p>
+              <div class="ach-info-group">
+                <h4 id="elem-main-title">Elementary Academic Recognition</h4>
+                <p id="elem-main-desc">Completed primary education at Natividad Central School.</p>
+              </div>
+
+              <div class="ach-thumbs-strip cols-1">
+                <div class="ach-thumb-slot active-slot" onclick="selectAchievement(this, 'ach-box-elem', 1, 1)">
+                  <img src="elem.jpg" data-title="Elementary Academic Recognition" data-desc="Completed primary education at Natividad Central School." alt="Elem 1" />
+                  <span class="ach-slot-num">01</span>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div class="achievement-card" onclick="expandCard(this)">
-            <div class="achievement-thumb-box">
-              <img src="achievement2.jpg" alt="Achievement 2" />
+          <div class="achievement-card" id="ach-box-jhs">
+            <div class="ach-card-top-bar">
+              <span class="ach-cat-title">Junior High &amp; Senior High School</span>
+              <span class="ach-counter-pill" id="jhs-counter">1 / 12</span>
+            </div>
+
+            <div class="achievement-thumb-box" onclick="expandShowcase('ach-box-jhs')">
+              <img id="jhs-main-img" src="9atten1.jpg" alt="JHS Achievement" />
               <div class="achievement-overlay-hint">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-                Expand View
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                Click to Expand
               </div>
             </div>
+
             <div class="achievement-body">
-              <span class="achievement-badge">Network Lab</span>
-              <h4>Networking Essentials</h4>
-              <p>Hands-on routing and IP configuration fundamentals.</p>
+              <div class="ach-info-group">
+                <h4 id="jhs-main-title">JHS 1st Quarter With Perfect Attendance Award</h4>
+                <p id="jhs-main-desc">Awarded With Perfect Attendance Award at Movers Academy Incorporated.</p>
+              </div>
+
+              <div class="ach-thumbs-strip cols-6">
+                <div class="ach-thumb-slot active-slot" onclick="selectAchievement(this, 'ach-box-jhs', 1, 12)">
+                  <img src="9atten1.jpg" data-title="JHS 1st Quarter With Perfect Attendance Award" data-desc="Awarded With Perfect Attendance Award at Movers Academy Incorporated." alt="JHS 1" />
+                  <span class="ach-slot-num">01</span>
+                </div>
+                <div class="ach-thumb-slot" onclick="selectAchievement(this, 'ach-box-jhs', 2, 12)">
+                  <img src="92honor.jpg" data-title="JHS 2nd Quarter With Honors Award" data-desc="Recognized for strong performance." alt="JHS 2" />
+                  <span class="ach-slot-num">02</span>
+                </div>
+                <div class="ach-thumb-slot" onclick="selectAchievement(this, 'ach-box-jhs', 3, 12)">
+                  <img src="92atten.jpg" data-title="JHS With Perfect Attendance Award" data-desc="Commended for student discipline, and active school participation." alt="JHS 3" />
+                  <span class="ach-slot-num">03</span>
+                </div>
+                <div class="ach-thumb-slot" onclick="selectAchievement(this, 'ach-box-jhs', 4, 12)">
+                  <img src="93rdhonor.jpg" data-title="JHS 3rd Quarter Honors" data-desc="Maintained top academic standing during Junior High School 3rd grading quarters." alt="JHS 4" />
+                  <span class="ach-slot-num">04</span>
+                </div>
+                <div class="ach-thumb-slot" onclick="selectAchievement(this, 'ach-box-jhs', 5, 12)">
+                  <img src="10honor3.jpg" data-title="JHS 3rd Quarter Honors" data-desc="Certificate of recognition for dedication to academic and extracurricular growth." alt="JHS 5" />
+                  <span class="ach-slot-num">05</span>
+                </div>
+                <div class="ach-thumb-slot" onclick="selectAchievement(this, 'ach-box-jhs', 6, 12)">
+                  <img src="104thhonor.jpg" data-title="JHS 4th Quarter Honors" data-desc="Maintained top academic standing during Junior High School 4th grading quarter." alt="JHS 6" />
+                  <span class="ach-slot-num">06</span>
+                </div>
+                <div class="ach-thumb-slot" onclick="selectAchievement(this, 'ach-box-jhs', 7, 12)">
+                  <img src="104atten.jpg" data-title="JHS With Perfect Attendance Award" data-desc="Commended for student discipline, and active school participation." alt="JHS 7" />
+                  <span class="ach-slot-num">07</span>
+                </div>
+                <div class="ach-thumb-slot" onclick="selectAchievement(this, 'ach-box-jhs', 8, 12)">
+                  <img src="11honor.jpg" data-title="SHS 1st Semester With Honors" data-desc="Maintained top academic standing during Senior High School 1st semester." alt="JHS 8" />
+                  <span class="ach-slot-num">08</span>
+                </div>
+                <div class="ach-thumb-slot" onclick="selectAchievement(this, 'ach-box-jhs', 9, 12)">
+                  <img src="11honor2.jpg" data-title="SHS 2nd Semester With Honors" data-desc="Maintained top academic standing during Senior High School 2nd semester." alt="JHS 9" />
+                  <span class="ach-slot-num">09</span>
+                </div>
+                <div class="ach-thumb-slot" onclick="selectAchievement(this, 'ach-box-jhs', 10, 12)">
+                  <img src="11honor2nd.jpg" data-title="SHS Finals With Honors" data-desc="Maintained top academic standing during Senior High School finals." alt="JHS 10" />
+                  <span class="ach-slot-num">10</span>
+                </div>
+                <div class="ach-thumb-slot" onclick="selectAchievement(this, 'ach-box-jhs', 11, 12)">
+                  <img src="writer.jpg" data-title="Writer/Photojournalist Award" data-desc="Honored for invaluable contributions to the school newspaper and photography club." alt="JHS 11" />
+                  <span class="ach-slot-num">11</span>
+                </div>
+                <div class="ach-thumb-slot" onclick="selectAchievement(this, 'ach-box-jhs', 12, 12)">
+                  <img src="grad.jpg" data-title="SHS Graduation Recognition" data-desc="Graduated Senior High School at Movers Academy Incorporated." alt="JHS 12" />
+                  <span class="ach-slot-num">12</span>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div class="achievement-card" onclick="expandCard(this)">
-            <div class="achievement-thumb-box">
-              <img src="achievement3.jpg" alt="Achievement 3" />
+          <div class="achievement-card" id="ach-box-contest">
+            <div class="ach-card-top-bar">
+              <span class="ach-cat-title">Contest &amp; Competition</span>
+              <span class="ach-counter-pill" id="contest-counter">1 / 5</span>
+            </div>
+
+            <div class="achievement-thumb-box" onclick="expandShowcase('ach-box-contest')">
+              <img id="contest-main-img" src="division.jpg" alt="Contest Achievement" />
               <div class="achievement-overlay-hint">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-                Expand View
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                Click to Expand
               </div>
             </div>
+
             <div class="achievement-body">
-              <span class="achievement-badge">Security Track</span>
-              <h4>Cybersecurity Basics</h4>
-              <p>Threat assessment, packet safety, and endpoint defense.</p>
+              <div class="ach-info-group">
+                <h4 id="contest-main-title">Dance &amp; Choreography Contest</h4>
+                <p id="contest-main-desc">Competed in inter-school dance competitions showcasing discipline and stage teamwork.</p>
+              </div>
+
+              <div class="ach-thumbs-strip cols-5">
+                <div class="ach-thumb-slot active-slot" onclick="selectAchievement(this, 'ach-box-contest', 1, 5)">
+                  <img src="division.jpg" data-title="Dance & Choreography Contest" data-desc="Competed in inter-school dance competitions showcasing discipline and stage teamwork." alt="Contest 1" />
+                  <span class="ach-slot-num">01</span>
+                </div>
+                <div class="ach-thumb-slot" onclick="selectAchievement(this, 'ach-box-contest', 2, 5)">
+                  <img src="champ.jpg" data-title="Hip-Hop Dance Contest" data-desc="Awarded as the champion in the Hip-Hop Dance category." alt="Contest 2" />
+                  <span class="ach-slot-num">02</span>
+                </div>
+                <div class="ach-thumb-slot" onclick="selectAchievement(this, 'ach-box-contest', 3, 5)">
+                  <img src="interpret.jpg" data-title="Municipal Meet Tourish Month" data-desc="Awarded as Champion in Interpretative Dance." alt="Contest 3" />
+                  <span class="ach-slot-num">03</span>
+                </div>
+                <div class="ach-thumb-slot" onclick="selectAchievement(this, 'ach-box-contest', 4, 5)">
+                  <img src="munis.jpg" data-title="Municipal Meet Hip-Hop Competition" data-desc="Competed in the Municipal Meet Hip-Hop Competition and won as a Champion." alt="Contest 4" />
+                  <span class="ach-slot-num">04</span>
+                </div>
+                <div class="ach-thumb-slot" onclick="selectAchievement(this, 'ach-box-contest', 5, 5)">
+                  <img src="pageanttrop.jpg" data-title="Search for Mr. and Ms. Movers Academy 2026" data-desc="Awarded certificate of participation, Mr. Movers 1st Runner-Up 2026, Social Media Award, Mr. Donut Ambassador 2026, and Mr. Frappey 2026." alt="Contest 5" />
+                  <span class="ach-slot-num">05</span>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div class="achievement-card" onclick="expandCard(this)">
-            <div class="achievement-thumb-box">
-              <img src="achievement4.jpg" alt="Achievement 4" />
-              <div class="achievement-overlay-hint">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-                Expand View
-              </div>
-            </div>
-            <div class="achievement-body">
-              <span class="achievement-badge">Programming</span>
-              <h4>Python Scripting</h4>
-              <p>Algorithmic logic, data arrays, and system automation.</p>
-            </div>
-          </div>
-
-          <div class="achievement-card" onclick="expandCard(this)">
-            <div class="achievement-thumb-box">
-              <img src="achievement5.jpg" alt="Achievement 5" />
-              <div class="achievement-overlay-hint">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-                Expand View
-              </div>
-            </div>
-            <div class="achievement-body">
-              <span class="achievement-badge">Hardware Logic</span>
-              <h4>Digital Logic Design</h4>
-              <p>Truth tables, binary decoders, and gate architectures.</p>
-            </div>
-          </div>
-
-          <div class="achievement-card" onclick="expandCard(this)">
-            <div class="achievement-thumb-box">
-              <img src="achievement6.jpg" alt="Achievement 6" />
-              <div class="achievement-overlay-hint">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-                Expand View
-              </div>
-            </div>
-            <div class="achievement-body">
-              <span class="achievement-badge">Leadership</span>
-              <h4>Team Collaboration</h4>
-              <p>Coordinated project milestones and technical reports.</p>
-            </div>
-          </div>
-
-          <div class="achievement-card" onclick="expandCard(this)">
-            <div class="achievement-thumb-box">
-              <img src="achievement7.jpg" alt="Achievement 7" />
-              <div class="achievement-overlay-hint">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-                Expand View
-              </div>
-            </div>
-            <div class="achievement-body">
-              <span class="achievement-badge">STEM Honors</span>
-              <h4>Mathematical Logic</h4>
-              <p>Analytical thinking and disciplined mathematical reasoning.</p>
-            </div>
-          </div>
-
-          <div class="achievement-card" onclick="expandCard(this)">
-            <div class="achievement-thumb-box">
-              <img src="achievement8.jpg" alt="Achievement 8" />
-              <div class="achievement-overlay-hint">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-                Expand View
-              </div>
-            </div>
-            <div class="achievement-body">
-              <span class="achievement-badge">Frontend Web</span>
-              <h4>Web Interface Design</h4>
-              <p>Responsive CSS grids, animations, and clean UX layout.</p>
-            </div>
-          </div>
-
-          <div class="achievement-card" onclick="expandCard(this)">
-            <div class="achievement-thumb-box">
-              <img src="achievement9.jpg" alt="Achievement 9" />
-              <div class="achievement-overlay-hint">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-                Expand View
-              </div>
-            </div>
-            <div class="achievement-body">
-              <span class="achievement-badge">Talent &amp; Arts</span>
-              <h4>Instrumental Arts</h4>
-              <p>Precision, rhythm, and dedicated team performance.</p>
-            </div>
-          </div>
-
-          <div class="achievement-card" onclick="expandCard(this)">
-            <div class="achievement-thumb-box">
-              <img src="achievement10.jpg" alt="Achievement 10" />
-              <div class="achievement-overlay-hint">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-                Expand View
-              </div>
-            </div>
-            <div class="achievement-body">
-              <span class="achievement-badge">Arts &amp; Expression</span>
-              <h4>Dance &amp; Stage Arts</h4>
-              <p>Discipline, agility, and competitive group performance.</p>
-            </div>
-          </div>
         </div>
       </div>
 
@@ -1914,14 +2255,20 @@
     </div>
   </main>
 
+  <!-- Expanded Image Lightbox Modal with Prev/Next Controls -->
   <div id="imageLightboxModal" class="lightbox-modal" onclick="closeLightboxOnBackdrop(event)">
     <div class="lightbox-container" onclick="event.stopPropagation()">
       <button class="lightbox-close-btn" onclick="closeImageModal()" title="Close">&times;</button>
       <div class="lightbox-image-stage">
+        <button class="lightbox-nav-btn lightbox-prev" id="lightboxPrevBtn" onclick="navigateLightbox(-1)" title="Previous Picture">&#10094;</button>
         <img id="lightboxTargetImg" src="" alt="Expanded View" />
+        <button class="lightbox-nav-btn lightbox-next" id="lightboxNextBtn" onclick="navigateLightbox(1)" title="Next Picture">&#10095;</button>
       </div>
       <div class="lightbox-caption-box">
-        <span class="lightbox-caption-tag" id="lightboxTag">CERTIFICATE</span>
+        <div class="lightbox-caption-header">
+          <span class="lightbox-caption-tag" id="lightboxTag">ACHIEVEMENT</span>
+          <span class="lightbox-caption-counter" id="lightboxCounter">1 / 1</span>
+        </div>
         <h3 class="lightbox-caption-title" id="lightboxTitle">Achievement Title</h3>
         <p class="lightbox-caption-desc" id="lightboxDesc">Detailed description of the recognition or badge.</p>
       </div>
@@ -2027,6 +2374,7 @@
       const targetPanel = document.getElementById('view-' + viewName);
       if (targetPanel) {
         targetPanel.classList.add('active-panel');
+        targetPanel.scrollTop = 0;
       }
 
       document.querySelectorAll('nav button').forEach(btn => {
@@ -2053,6 +2401,9 @@
 
       const wrapper = document.querySelector('.views-wrapper');
       if (wrapper) wrapper.scrollTop = 0;
+      if (window.innerWidth <= 960) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     }
 
     function navigatePages(direction) {
@@ -2079,31 +2430,106 @@
       document.getElementById('card3Desc').innerText = data.c3D;
     }
 
-    function expandCard(cardElement) {
-      const img = cardElement.querySelector('img');
-      const title = cardElement.querySelector('h4') ? cardElement.querySelector('h4').innerText : 'Achievement Preview';
-      const tag = cardElement.querySelector('.achievement-badge') ? cardElement.querySelector('.achievement-badge').innerText : 'CERTIFICATE // HONORS';
-      const desc = cardElement.querySelector('.achievement-body p') ? cardElement.querySelector('.achievement-body p').innerText : '';
-      
-      const src = img ? (img.getAttribute('src') || img.src) : '';
-      expandImage(src, title, tag, desc);
+    // Track active gallery box & index for Lightbox navigation
+    let activeLightboxBoxId = null;
+    let activeLightboxIndex = 0;
+
+    function selectAchievement(slotEl, boxId, index, total, shouldExpand = true) {
+      const box = document.getElementById(boxId);
+      if (!box) return;
+
+      const thumbImg = slotEl.querySelector('img');
+      const src = thumbImg.getAttribute('src');
+      const title = thumbImg.getAttribute('data-title') || 'Achievement';
+      const desc = thumbImg.getAttribute('data-desc') || '';
+
+      if (shouldExpand && slotEl.classList.contains('active-slot')) {
+        expandShowcase(boxId);
+        return;
+      }
+
+      box.querySelectorAll('.ach-thumb-slot').forEach(s => s.classList.remove('active-slot'));
+      slotEl.classList.add('active-slot');
+
+      const mainImg = box.querySelector('.achievement-thumb-box img');
+      const mainTitle = box.querySelector('.ach-info-group h4');
+      const mainDesc = box.querySelector('.ach-info-group p');
+      const counter = box.querySelector('.ach-counter-pill');
+
+      if (mainImg) mainImg.src = src;
+      if (mainTitle) mainTitle.innerText = title;
+      if (mainDesc) mainDesc.innerText = desc;
+      if (counter) counter.innerText = `${index} / ${total}`;
     }
 
-    function expandImage(src, title, tag, desc) {
-      const modal = document.getElementById('imageLightboxModal');
-      const targetImg = document.getElementById('lightboxTargetImg');
-      
-      targetImg.src = src;
-      document.getElementById('lightboxTitle').innerText = title || 'Achievement Preview';
-      document.getElementById('lightboxTag').innerText = tag || 'CERTIFICATE // HONORS';
-      document.getElementById('lightboxDesc').innerText = desc || '';
+    function expandShowcase(boxId) {
+      const box = document.getElementById(boxId);
+      if (!box) return;
 
-      modal.classList.add('active');
+      const slots = Array.from(box.querySelectorAll('.ach-thumb-slot'));
+      let currentIdx = slots.findIndex(s => s.classList.contains('active-slot'));
+      if (currentIdx === -1) currentIdx = 0;
+
+      activeLightboxBoxId = boxId;
+      activeLightboxIndex = currentIdx;
+
+      renderLightboxFromBox();
+      document.getElementById('imageLightboxModal').classList.add('active');
+    }
+
+    function renderLightboxFromBox() {
+      const box = document.getElementById(activeLightboxBoxId);
+      if (!box) return;
+
+      const slots = Array.from(box.querySelectorAll('.ach-thumb-slot'));
+      const total = slots.length;
+      if (total === 0) return;
+
+      const currentSlot = slots[activeLightboxIndex];
+      const thumbImg = currentSlot.querySelector('img');
+      const src = thumbImg ? (thumbImg.getAttribute('src') || thumbImg.src) : '';
+      const title = thumbImg ? (thumbImg.getAttribute('data-title') || 'Achievement Preview') : 'Achievement Preview';
+      const desc = thumbImg ? (thumbImg.getAttribute('data-desc') || '') : '';
+      const tag = box.querySelector('.ach-cat-title') ? box.querySelector('.ach-cat-title').innerText : 'ACHIEVEMENT';
+
+      document.getElementById('lightboxTargetImg').src = src;
+      document.getElementById('lightboxTitle').innerText = title;
+      document.getElementById('lightboxTag').innerText = tag;
+      document.getElementById('lightboxDesc').innerText = desc;
+      document.getElementById('lightboxCounter').innerText = `${activeLightboxIndex + 1} / ${total}`;
+
+      // Show or hide Prev/Next arrows based on whether there are multiple pictures
+      const prevBtn = document.getElementById('lightboxPrevBtn');
+      const nextBtn = document.getElementById('lightboxNextBtn');
+      if (total <= 1) {
+        prevBtn.style.display = 'none';
+        nextBtn.style.display = 'none';
+      } else {
+        prevBtn.style.display = 'flex';
+        nextBtn.style.display = 'flex';
+      }
+
+      // Sync the card behind the modal to match the current lightbox picture
+      selectAchievement(currentSlot, activeLightboxBoxId, activeLightboxIndex + 1, total, false);
+    }
+
+    function navigateLightbox(step) {
+      if (!activeLightboxBoxId) return;
+      const box = document.getElementById(activeLightboxBoxId);
+      if (!box) return;
+
+      const slots = Array.from(box.querySelectorAll('.ach-thumb-slot'));
+      const total = slots.length;
+      if (total <= 1) return;
+
+      activeLightboxIndex = (activeLightboxIndex + step + total) % total;
+      renderLightboxFromBox();
     }
 
     function closeImageModal() {
       const modal = document.getElementById('imageLightboxModal');
       modal.classList.remove('active');
+      activeLightboxBoxId = null;
     }
 
     function closeLightboxOnBackdrop(event) {
@@ -2111,8 +2537,15 @@
     }
 
     window.addEventListener('keydown', (e) => {
+      const modal = document.getElementById('imageLightboxModal');
+      if (!modal || !modal.classList.contains('active')) return;
+
       if (e.key === 'Escape') {
         closeImageModal();
+      } else if (e.key === 'ArrowRight') {
+        navigateLightbox(1);
+      } else if (e.key === 'ArrowLeft') {
+        navigateLightbox(-1);
       }
     });
 
